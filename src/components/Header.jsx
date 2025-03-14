@@ -28,6 +28,10 @@ const nav__links = [
     path: "/Dietplan",
     display: "Dietplan",
   },
+  {
+    path: "/Bpi",
+    display: "BPI calculate",
+  },
 ];
 
 const Header = () => {
