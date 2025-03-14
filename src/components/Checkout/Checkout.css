@@ -1,0 +1,202 @@
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+  }
+  
+  $primary-color: #6c7a89;
+  $secondary-color: #00b894;
+  $decor-color: #bdc3c7;
+  $font: "proxima-nova", sans-serif;
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: 0.2s ease-in-out;
+    font-family: $font;
+    font-weight: 400;
+    color: $primary-color;
+    &:focus {
+      outline: none;
+    }
+  }
+  
+  body {
+    background-color: #e2fbf5;
+  }
+  
+  #wrapper {
+    position: absolute;
+    top: 50%;
+    margin-top: -240px;
+    left: 0;
+    width: 100%;
+  }
+  
+  #container {
+    width: 720px;
+    height: 480px;
+    margin: 0 auto;
+    box-shadow: 4px 4px 15px 4px rgba(0, 0, 0, 0.534);
+    @include border-radius(5px);
+    overflow: hidden;
+    background: #ceecf4;
+
+  }
+  
+  #info {
+    width: 52%;
+    float: left;
+    #product {
+      width: 100%;
+      /* margin: -50px 0 -85px -65px; */
+    }
+    p {
+      width: 100%;
+      text-align: center;
+      line-height: 1.5em;
+      letter-spacing: 1px;
+    }
+    #price {
+      width: 50%;
+      margin: 0 auto;
+      letter-spacing: 1px;
+      h2 {
+        text-align: center;
+        font-weight: 700;
+        color: #000;
+        padding-top: 10px;
+      }
+    }
+  }
+  
+  #payment {
+    width: 40%;
+    float: right;
+    padding: 10px 30px 20px 0;
+  }
+  
+  #checkout {
+    width: 100%;
+    label {
+      float: left;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 1em;
+      padding: 10px 0 10px 0;
+    }
+  
+    .card {
+      width: 29%;
+      margin: 0 10% 25px 10%;
+      border: none;
+      background: none;
+      height: 50px;
+      cursor: pointer;
+      filter: grayscale(100%);
+      &:focus {
+        filter: none;
+      }
+    }
+    #visa {
+      background-image: url("http://enwaara.se/codepen/visa.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+    #mastercard {
+      background-image: url("http://enwaara.se/codepen/mastercard.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 118%;
+    }
+    #cardnumber,
+    #cardholder,
+    #cvc {
+      width: 100%;
+      background: none;
+      border: 1px solid $primary-color;
+      padding: 8px 19px;
+      @include border-radius(50px);
+      &:focus {
+        border: 1px solid $secondary-color;
+      }
+    }
+    ::-webkit-input-placeholder {
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-size: 0.9em;
+      color: $decor-color;
+    }
+    #left {
+      width: 100%;
+      border: 1px solid $primary-color;
+      @include border-radius(50px);
+      overflow: hidden;
+      padding: 3px 5px;
+      float: left;
+      #month,
+      #year {
+        background: none;
+        border: none;
+        padding: 5px;
+        @include border-radius(5px);
+        float: left;
+        font-size: 0.8em;
+        letter-spacing: 3px;
+        color: $decor-color;
+        appearance: none;
+      }
+      p {
+        float: left;
+        padding-top: 2px;
+        font-size: 1.2em;
+        color: $decor-color;
+        letter-spacing: 3px;
+      }
+    }
+    #cvc {
+      width: 30%;
+      float: left;
+      margin-left: 11%;
+      margin-bottom: 20px;
+    }
+    .btn {
+      background: $secondary-color;
+      border: none;
+      width: 100%;
+      padding: 12px 10px;
+      font-size: 1.2em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #fff;
+      @include border-radius(50px);
+      cursor: pointer;
+    }
+  }
+  
+
+
+  .Checkout_image .img{
+    /* width: 50px !important; */
+    object-fit: contain;
+    display: flex;
+    position: absolute;
+  }
+  .customText{
+    text-align: center;
+    font-weight: 700;
+    
+  }
+
+  .payment-status.success {
+    color: green;
+  }
+  
+  .payment-status.failure {
+    color: red;
+  }
+  

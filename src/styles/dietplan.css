@@ -1,0 +1,255 @@
+.chat-container {
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, #b3e5fc, #4fc3f7);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chat-title {
+    text-align: center;
+    font-size: 1.7rem;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Input Container */
+  .input-container {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 450px;
+    margin: auto;
+  }
+  
+  .input-container input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .input-container input:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.3);
+  }
+  
+  .input-container button {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .input-container button:hover {
+    background: #218838;
+  }
+  
+  /* Prompt Buttons */
+  .prompt-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .prompt-buttons button {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .prompt-buttons button:hover {
+    background: #f5f5f5;
+    border-color: #007bff;
+  }
+  
+  /* Chat Box */
+  .chat-box {
+    height: 480px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    scroll-behavior: smooth;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  /* Message Styling */
+  .message {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-size: 1rem;
+    line-height: 1.5;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    word-wrap: break-word;
+  }
+  
+  /* User Message */
+  .user {
+    align-self: flex-end;
+    background: #007bff;
+    color: white;
+    text-align: right;
+  }
+  
+  /* Bot Message */
+  .bot {
+    align-self: flex-start;
+    background: #e0e0e0;
+    color: black;
+    display: flex;
+    gap: 8px;
+  }
+  
+  /* Bot Avatar */
+  .bot-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+  }
+  
+  /* Typing Indicator */
+  .bot-typing {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .typing-indicator {
+    display: flex;
+    gap: 4px;
+  }
+  
+  .typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: #007bff;
+    border-radius: 50%;
+    animation: typing 1.5s infinite ease-in-out;
+  }
+  
+  .typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  @keyframes typing {
+    0% {
+      opacity: 0.3;
+      transform: translateY(0px);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-4px);
+    }
+    100% {
+      opacity: 0.3;
+      transform: translateY(0px);
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .chat-container {
+      width: 95%;
+      padding: 15px;
+    }
+  
+    .chat-title {
+      font-size: 1.5rem;
+    }
+  
+    .input-container {
+      flex-direction: column;
+      max-width: 100%;
+    }
+  
+    .input-container input {
+      padding: 10px;
+    }
+  
+    .input-container button {
+      padding: 10px;
+    }
+  
+    .message {
+      max-width: 90%;
+      font-size: 0.9rem;
+    }
+  
+    .bot-avatar {
+      width: 30px;
+      height: 30px;
+    }
+  
+    .chat-box {
+      height: 400px;
+      padding: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .chat-container {
+      padding: 10px;
+    }
+  
+    .chat-title {
+      font-size: 1.3rem;
+    }
+  
+    .input-container input,
+    .input-container button {
+      padding: 8px;
+      font-size: 0.9rem;
+    }
+  
+    .message {
+      max-width: 100%;
+      font-size: 0.85rem;
+      padding: 8px;
+    }
+  
+    .bot-avatar {
+      width: 25px;
+      height: 25px;
+    }
+  
+    .chat-box {
+      height: 350px;
+    }
+  }

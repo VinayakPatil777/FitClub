@@ -1,0 +1,179 @@
+/* Fitness Plan Page Styling - Enhanced */
+.fitness-plan {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+}
+
+.fitness-plan h1 {
+  font-size: 2.8rem;
+  margin-bottom: 40px;
+  letter-spacing: 3px;
+  background: linear-gradient(45deg, #00f3ff, #00ff88);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  display: inline-block;
+}
+
+.fitness-plan h1::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #00f3ff, transparent);
+}
+
+/* Enhanced Category Navigation */
+.category-nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.category-nav button {
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #00f3ff 0%, #0066ff 100%);
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 243, 255, 0.3);
+}
+
+.category-nav button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: 0.6s;
+}
+
+.category-nav button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(0, 243, 255, 0.4);
+}
+
+.category-nav button:hover::before {
+  left: 100%;
+}
+
+.category-nav button.active {
+  background: linear-gradient(135deg, #ff00ff 0%, #0066ff 100%);
+  color: #fff;
+  box-shadow: 0 0 25px rgba(255, 0, 255, 0.4);
+}
+
+/* Enhanced Video Grid */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  padding: 0 40px;
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.video-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 243, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.video-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 243, 255, 0.2);
+  border-color: #00f3ff;
+}
+
+.video-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transition: 0.6s;
+}
+
+.video-card:hover::before {
+  left: 100%;
+}
+
+.video-card h2 {
+  font-size: 1.4rem;
+  margin: 20px;
+  color: #00f3ff;
+  text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+}
+
+.video-container {
+  position: relative;
+  padding-top: 56.25%;
+  background: #000;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .video-grid {
+    padding: 0 20px;
+    gap: 25px;
+  }
+  
+  .category-nav {
+    gap: 10px;
+  }
+  
+  .category-nav button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .fitness-plan h1 {
+    font-size: 2rem;
+  }
+}
