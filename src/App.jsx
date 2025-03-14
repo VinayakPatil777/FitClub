@@ -17,10 +17,10 @@ const App = () => {
   // }, [])
   return (
 
-    <BrowserRouter>
+   < >
       <Header />
       <AllRoutes />
-    </BrowserRouter>
+    </>
 
   )
 }
