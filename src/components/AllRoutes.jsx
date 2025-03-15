@@ -12,6 +12,7 @@ import Footer from '../UI/Footer'; // Assuming you have a Footer component'
 import Gallery from '../UI/Gallery';
 import About from '../UI/AboutPage';
 import Dietplan from '../UI/DietPlan.jsx';
+import Bpi from '../UI/Bpi.jsx'
 // import { useAuth0 } from "@auth0/auth0-react";
 
 const AllRoutes = () => {
@@ -31,6 +32,8 @@ const AllRoutes = () => {
         <Route path="/exercise" element={<Exercise />} />
         <Route path="/about" element={<About />} />
         <Route path="/dietplan" element={<Dietplan />} />
+        <Route path="/Bpi" element={<Bpi />} />
+
         
         {/* <Route path="/track" element={isAuthenticated ? <Track /> : <Login />} /> */}
       </Routes>
