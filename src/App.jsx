@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import { useEffect, useContext } from "react";
 import Footer from "./UI/Footer";
@@ -16,32 +16,12 @@ const App = () => {
   //   // Aos.init();
   // }, [])
   return (
-
-   < >
+    <>
       <Header />
       <AllRoutes />
+      <Footer />
     </>
+  );
+};
 
-  )
-}
-
-export default App
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default App;

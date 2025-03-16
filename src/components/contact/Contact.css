@@ -1,0 +1,169 @@
+.contact_us_6 * {
+    /* font-family: Nunito, sans-serif; */
+}
+.contact_us_6 .responsive-container-block {
+    /* display: flex;  */
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.parent{
+    display: flex;
+}
+.contact_us_6 .container-block.form-wrapper {
+    background-color: white;
+    max-width: 450px;
+    padding: 20px 30px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 4px 20px 7px;
+    border-radius: 6px;
+    margin: 20px
+}
+.input-title{
+    padding : 10px 0 2px 0;
+}
+.contact_us_6 .textinput {
+    min-height: 70px;
+}
+
+
+
+
+.contact_us_6 .text-blk {
+    margin: 0;
+    line-height: 25px;
+}
+
+.contact_us_6 .responsive-cell-block {
+    min-height: 60px;
+}
+
+.contact_us_6 input:focus,
+.contact_us_6 textarea:focus {
+    outline: none;
+}
+
+.contact_us_6 .container-block {
+    width: 100%;
+    padding: 10px;
+    display: block;
+}
+.contact_us_6 .text-blk.contactus-subhead {
+    color: #9c9c9c;
+    width: 300px;
+    margin: 0 auto 20px;
+}
+
+
+
+.contact_us_6 .text-blk.contactus-head {
+    font-size: 36px;
+    line-height: 52px;
+    font-weight: 900;
+    text-align: center;
+    color: #132742;
+}
+
+.sub-heading{
+    padding: 10px 10px;
+}
+
+.contact_us_6 .input,
+.contact_us_6 .textinput {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #eeeeee;
+    font-size: 16px;
+    color: black;
+}
+
+
+
+.contact_us_6 .submit-btn {
+    width: 100%;
+    background-color: #d00000;
+    height: 60px;
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    border-radius: 40px;
+    border: none;
+}
+
+.contact_us_6 .map-part {
+    text-align: center;
+}
+
+.contact_us_6 .text-blk.map-contactus-head {
+    font-weight: 900;
+    font-size: 28px;
+
+    color: #132742;
+}
+
+.contact_us_6 .social-media-links {
+    display: flex;
+padding: 5px 0;
+    justify-content: space-evenly;
+}
+
+.contact_us_6 .link-img {
+    width: 30px;
+    height: 30px;
+}
+
+.contact_us_6 .map-box {
+    width: 100%;
+    height: 500px;
+    background-color: #d9d9d9;
+    /* background-image: url("https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/sc23.png"); */
+    background-size: cover;
+    background-position: center;
+    margin-top: 10px;
+    
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .contact_us_6 .container-block.form-wrapper {
+        margin-top: 80px;
+    }
+
+    .contact_us_6 .text-blk.contactus-head {
+        font-size: 32px;
+        line-height: 40px;
+    }
+
+    .contact_us_6 .map-box {
+        height: 300px;
+    }
+}
+
+@media (max-width: 500px) {
+    .contact_us_6 .container-block.form-wrapper {
+        margin-top: 60px;
+    }
+
+    .contact_us_6 .text-blk.contactus-head {
+        font-size: 26px;
+        line-height: 35px;
+    }
+
+    .contact_us_6 .input {
+        height: 45px;
+    }
+}
+
+.right {
+    /* margin-top: 120px; */
+    /* Add additional alignment or styling if needed */
+    text-align: center;
+    padding: 20px 30px;
+}
+
+
+.response_contact{
+    text-align: center;
+    justify-content: center;
+    padding: 9.7rem  2rem;
+    font-size: larger;
+    top:50%
+}

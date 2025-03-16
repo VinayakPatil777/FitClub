@@ -16,10 +16,10 @@ const nav__links = [
     path: "/membership",
     display: "Membership",
   },
-  {
-    path: "/gallery",
-    display: "Gallery",
-  },
+  // {
+  //   path: "/gallery",
+  //   display: "Gallery",
+  // },
   {
     path: "/about",
     display: "About",
@@ -28,9 +28,13 @@ const nav__links = [
     path: "/Dietplan",
     display: "Dietplan",
   },
+  // {
+  //   path: "/bmiCalulate",
+  //   display: "BMI calculate",
+  // },
   {
-    path: "/Bpi",
-    display: "BPI calculate",
+    path: "/contact",
+    display: "Contact",
   },
 ];
 
