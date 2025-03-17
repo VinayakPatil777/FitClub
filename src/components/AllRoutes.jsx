@@ -33,7 +33,7 @@ const AllRoutes = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/exercise" element={<Exercise />} />
         <Route path="/about" element={<About />} />
-        <Route path="/dietplan" element={<Dietplan />} />
+        <Route path="/diet-plan" element={<Dietplan />} />
         <Route path="/bmiCalulate" element={<Bpi />} />
 
         

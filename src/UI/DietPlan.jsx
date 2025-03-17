@@ -50,7 +50,7 @@ const DietPlan = () => {
   return (
     <>
       <div className="chat-container">
-        <h2 className="chat-title">AI Diet Assistant</h2>
+        <h2 className="chat-title">AI Health Assistant</h2>
         <div className="input-container">
           <input
             type="text"

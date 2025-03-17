@@ -24,10 +24,10 @@ const nav__links = [
     path: "/about",
     display: "About",
   },
-  {
-    path: "/Dietplan",
-    display: "Dietplan",
-  },
+  // {
+  //   path: "/Dietplan",
+  //   display: "Dietplan",
+  // },
   // {
   //   path: "/bmiCalulate",
   //   display: "BMI calculate",

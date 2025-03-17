@@ -3,6 +3,7 @@ import Hero from "./Hero";
 import Exercise from "./Exercise";
 import Start from "./Start";
 import SecGallery from "./SecGallery.jsx";
+import AIAssistant from "./AIAssistant.jsx";
 const Home = () => {
   return (
     <>
@@ -10,6 +11,9 @@ const Home = () => {
       <Exercise />
       <Start />
       <SecGallery />
+
+
+      <AIAssistant/>
     </>
   );
 };
