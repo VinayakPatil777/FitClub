@@ -26,11 +26,11 @@ const Pricing = () => {
 
             <div className="services">
                 <ul>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Unlimited access to the App</li>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Customer support</li>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Personal trainer</li>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Personal Nutritionist</li>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Demo online classes</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Unlimited access to the App</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Customer support</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Personal trainer</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Personal Nutritionist</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Demo online classes</li>
                 </ul>
 
                 <button id="ReularMember" className='register__btn' onClick={handleBuyNowClick}>Buy Now</button>
@@ -45,12 +45,12 @@ const Pricing = () => {
 
             <div className="services">
                 <ul>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Unlimited access to the App</li>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Customer support</li>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Personal trainer</li>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Personal Nutritionist</li>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Free online classes</li>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Free access to our gym centers</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Unlimited access to the App</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Customer support</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Personal trainer</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Personal Nutritionist</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Free online classes</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Free access to our gym centers</li>
                 </ul>
 
                 <button className='register__btn'>Buy Now</button>
@@ -65,11 +65,11 @@ const Pricing = () => {
 
             <div className="services">
                 <ul>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Unlimited access to the App</li>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Customer support</li>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Personal trainer</li>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Personal Nutritionist</li>
-                    <li><span><i class="ri-checkbox-blank-circle-fill"></i></span>Free online classes</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Unlimited access to the App</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Customer support</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Personal trainer</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Personal Nutritionist</li>
+                    <li><span><i className="ri-checkbox-blank-circle-fill"></i></span>Free online classes</li>
                 </ul>
 
                 <button className='register__btn'>Buy Now</button>
