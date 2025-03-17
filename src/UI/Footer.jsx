@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/footer.css";
 import logo from "../assets/img/vsLogo.jpg";
 import Exercise from "./Exercise";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
     const year=new Date().getFullYear();
@@ -10,12 +11,12 @@ const Footer = () => {
       <div className="container">
         <div className="footer__wrapper">
           <div className="footer__box">
-            <div className="logo">
+            <NavLink to={"/"} className="logo">
               <div className="logo__img">
                 <img src={logo} alt="" />
               </div>
               <h2>Fitness Club</h2>
-            </div>
+            </NavLink>
             <p>
             Achieve your health goals with expert training, personalized plans, and a supportive community. Join us and elevate your fitness journey today!
             </p>
@@ -24,11 +25,14 @@ const Footer = () => {
             <h4 className="footer__title">Company</h4>
 
             <ul className="footer__links">
+            {/* <li>
+                <a href="/">Home</a>
+              </li> */}
               <li>
                 <a href="/programs">Our Programs</a>
               </li>
               <li>
-                <a href="/dietplan">Diet Plans</a>
+                <a href="/diet-plan">Diet Plans</a>
               </li>
               <li>
                 <a href="/membership">Become a member</a>
@@ -41,13 +45,13 @@ const Footer = () => {
 
             <ul className="footer__links">
               <li>
-                <a href="#">Fitness</a>
+                <a href="/gallery">Gallery</a>
               </li>
               <li>
-                <a href="#">Nutrition</a>
+                <a href="/bmiCalulate">BMI Calculate</a>
               </li>
               <li>
-                <a href="#">Experts</a>
+                <a href="/diet-plan">AI Health Assistant</a>
               </li>
             </ul>
           </div>
@@ -56,13 +60,13 @@ const Footer = () => {
 
             <ul className="footer__links">
               <li>
-                <a href="/about">About us</a>
+                <a href="/about">About Us</a>
               </li>
               <li>
-                <a href="/contact">Contact us</a>
+                <a href="/contact">Contact Us</a>
               </li>
               <li>
-                <a href="#">Support</a>
+                <a href="/membership">Membership</a>
               </li>
             </ul>
           </div>

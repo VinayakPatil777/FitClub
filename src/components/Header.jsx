@@ -34,7 +34,7 @@ const nav__links = [
   // },
   {
     path: "/contact",
-    display: "Contact",
+    display: "Contact Us",
   },
 ];
 

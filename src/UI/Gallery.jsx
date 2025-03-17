@@ -2,11 +2,31 @@ import React, { useState } from "react";
 import "../styles/FitnessPlan.css";
 
 const fitnessVideos = [
-  { title: "Chest Workout", category: "Chest", videoUrl: "https://www.youtube.com/embed/your-chest-video-id" },
-  { title: "Back Workout", category: "Back", videoUrl: "https://www.youtube.com/embed/your-back-video-id" },
-  { title: "Leg Workout", category: "Legs", videoUrl: "https://www.youtube.com/embed/your-leg-video-id" },
-  { title: "Arm Workout", category: "Arms", videoUrl: "https://www.youtube.com/embed/your-arm-video-id" },
-  { title: "Shoulder Workout", category: "Shoulders", videoUrl: "https://www.youtube.com/embed/your-shoulder-video-id" },
+  {
+    title: "Chest Workout",
+    category: "Chest",
+    videoUrl: "https://www.youtube.com/embed/your-chest-video-id",
+  },
+  {
+    title: "Back Workout",
+    category: "Back",
+    videoUrl: "https://www.youtube.com/embed/your-back-video-id",
+  },
+  {
+    title: "Leg Workout",
+    category: "Legs",
+    videoUrl: "https://www.youtube.com/embed/your-leg-video-id",
+  },
+  {
+    title: "Arm Workout",
+    category: "Arms",
+    videoUrl: "https://www.youtube.com/embed/your-arm-video-id",
+  },
+  {
+    title: "Shoulder Workout",
+    category: "Shoulders",
+    videoUrl: "https://www.youtube.com/embed/your-shoulder-video-id",
+  },
 ];
 
 const categories = ["All", "Chest", "Back", "Legs", "Arms", "Shoulders"];
