@@ -3,7 +3,7 @@ import "../styles/testimonials.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-cards";
-// import { EffectCards } from "swiper";
+import { EffectCards } from "swiper";
 
 export default function Testimonials() {
   return (
@@ -14,7 +14,7 @@ export default function Testimonials() {
           <Swiper
             effect={"cards"}
             grabCursor={true}
-            // modules={[EffectCards]}
+            modules={[EffectCards]}
             className="mySwiper"
           >
             <SwiperSlide>

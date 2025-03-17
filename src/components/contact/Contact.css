@@ -86,6 +86,7 @@
     color: white;
     border-radius: 40px;
     border: none;
+    margin-top: 10px;
 }
 
 .contact_us_6 .map-part {
@@ -167,3 +168,29 @@ padding: 5px 0;
     font-size: larger;
     top:50%
 }
+
+
+
+
+.social-icons {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    /* margin-top: 10px; */
+  }
+  
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .social-link:hover {
+    transform: scale(1.2);
+  }
+  

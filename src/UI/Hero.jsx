@@ -40,6 +40,8 @@ const Hero = () => {
                     <div className="heart__rate" data-aos-duration="1100" data-aos="fade-right">
                         <h5>Heart Rate</h5>
                         <span><i className="ri-heart-pulse-fill"></i></span>
+
+                        
                         <h6>100 BPM</h6>
                     </div>
 
