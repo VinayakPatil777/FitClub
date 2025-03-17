@@ -13,7 +13,7 @@ const App = () => {
     <>
       <Header />
       <AllRoutes />
-      {location.pathname !== "/checkout" && <Footer />}
+      {location.pathname !== "/checkout" || "/login" || "/singup" && <Footer />}
     </>
   );
 };

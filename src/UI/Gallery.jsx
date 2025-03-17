@@ -1,38 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/FitnessPlan.css";
 
 const fitnessVideos = [
-  {
-    title: "Chest Workout",
-    category: "Chest",
-    videoUrl: "https://www.youtube.com/embed/your-chest-video-id",
-  },
-  {
-    title: "Back Workout",
-    category: "Back",
-    videoUrl: "https://www.youtube.com/embed/your-back-video-id",
-  },
-  {
-    title: "Leg Workout",
-    category: "Legs",
-    videoUrl: "https://www.youtube.com/embed/your-leg-video-id",
-  },
-  {
-    title: "Arm Workout",
-    category: "Arms",
-    videoUrl: "https://www.youtube.com/embed/your-arm-video-id",
-  },
-  {
-    title: "Shoulder Workout",
-    category: "Shoulders",
-    videoUrl: "https://www.youtube.com/embed/your-shoulder-video-id",
-  },
+  { title: "Chest Workout", category: "Chest", videoId: "lvk2PMsuS88" },
+  { title: "Back Workout", category: "Back", videoId: "wpHO3DZpE4w" },
+  { title: "Leg Workout", category: "Legs", videoId: "QKInsLdqitQ" },
+  { title: "Arm Workout", category: "Arms", videoId: "20-YGOXNs30" },
+  { title: "Shoulder Workout", category: "Shoulders", videoId: "hQrb2gghgd4" },
 ];
 
 const categories = ["All", "Chest", "Back", "Legs", "Arms", "Shoulders"];
 
 const FitnessPlan = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [popupVideo, setPopupVideo] = useState(null);
+
+  // Prevent scrolling when popup is open
+  useEffect(() => {
+    if (popupVideo) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [popupVideo]);
 
   const filteredVideos =
     selectedCategory === "All"
@@ -61,16 +51,33 @@ const FitnessPlan = () => {
         {filteredVideos.map((video, index) => (
           <div className="video-card" key={index}>
             <h2>{video.title}</h2>
+
+            {/* Click Thumbnail to Open Video Popup */}
+            <img
+              src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
+              alt={video.title}
+              className="video-thumbnail"
+              onClick={() => setPopupVideo(video.videoId)}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Video Popup Modal */}
+      {popupVideo && (
+        <div className="video-popup">
+          <div className="video-popup-content">
+            <span className="close-button" onClick={() => setPopupVideo(null)}>&times;</span>
             <iframe
-              src={video.videoUrl}
-              title={video.title}
+              src={`https://www.youtube.com/embed/${popupVideo}?autoplay=1`}
+              title="Workout Video"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
           </div>
-        ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

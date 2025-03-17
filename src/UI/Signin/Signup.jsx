@@ -1,26 +1,22 @@
 import { useState } from "react";
 import { auth } from "../../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import "../Signin/Signup.css"; // Changed filename to avoid overrides
+import "./Signup.css"; 
 
-const Login = () => {
+const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      toast.success("Login Successful!", { position: "top-right" });
-      setTimeout(() => {
-        navigate("/");
-      }, 3000);
+      await createUserWithEmailAndPassword(auth, email, password);
+      toast.success("Signup Successful!", { position: "top-right" });
     } catch (error) {
-      console.error("Error logging in:", error);
+      console.error("Error signing up:", error);
       toast.error(error.message, { position: "top-right" });
     }
   };
@@ -29,8 +25,8 @@ const Login = () => {
     <div className="loginPage">
       <ToastContainer />
       <div className="loginWrapper">
-        <h2 className="loginTitle">Login</h2>
-        <form className="loginForm" onSubmit={handleLogin}>
+        <h2 className="loginTitle">Sign Up</h2>
+        <form className="loginForm" onSubmit={handleSignup}>
           <input
             type="email"
             placeholder="Email"
@@ -45,14 +41,14 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit" className="loginButton">Login</button>
+          <button type="submit" className="loginButton">Sign Up</button>
         </form>
         <p className="signupText">
-          New user? <NavLink to="/signup" className="signupLink">Sign up here</NavLink>
+          Already have an account? <NavLink to="/login" className="signupLink">Log in</NavLink>
         </p>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Signup;

@@ -1,18 +1,10 @@
-import React from 'react'
-import { useContext } from 'react'
-import { AuthContext } from './AuthContextProvider'
-import { useAuth0 } from "@auth0/auth0-react";
+import { Navigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase";
 
-const PrivateRoute = ({children}) => {
-    const {isAuth} = useContext(AuthContext);
-    const {isAuthenticated,loginWithRedirect} = useAuth0();
+const PrivateRoute = ({ children }) => {
+  const [user] = useAuthState(auth);
+  return user ? children : <Navigate to="/login" />;
+};
 
-    // const navigate = useNavigate();
-    if(isAuthenticated){
-        loginWithRedirect()
-    }
-
-    return children;
-}
-
-export default PrivateRoute
+export default PrivateRoute;

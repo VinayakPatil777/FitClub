@@ -6,7 +6,7 @@ import Pricing from '../UI/Pricing';
 import Track from '../UI/Track';  
 import Exercise from '../UI/Exercise';
 import Home from '../UI/Home';
-import Login from '../UI/Login.jsx/Login.jsx';
+// import Login from '../UI/Login.jsx/Login.jsx';
 import Checkout from './Checkout/Checkout';
 import Footer from '../UI/Footer'; // Assuming you have a Footer component'
 import Gallery from '../UI/Gallery';
@@ -14,6 +14,8 @@ import About from '../UI/AboutPage';
 import Dietplan from '../UI/DietPlan.jsx';
 import Bpi from '../UI/Bpi.jsx'
 import Contact from './contact/Contact';
+import Login from '../UI/Login.jsx/Login.jsx';
+import Signup from '../UI/Signin/Signup.jsx';
 // import { useAuth0 } from "@auth0/auth0-react";
 
 const AllRoutes = () => {
@@ -35,6 +37,8 @@ const AllRoutes = () => {
         <Route path="/about" element={<About />} />
         <Route path="/diet-plan" element={<Dietplan />} />
         <Route path="/bmiCalulate" element={<Bpi />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login/>} />
 
         
         {/* <Route path="/track" element={isAuthenticated ? <Track /> : <Login />} /> */}
