@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "../styles/FitnessPlan.css";
 
 const fitnessVideos = [
-  { title: "Chest Workout", category: "Chest", videoUrl: "https://www.youtube.com/embed/your-chest-video-id" },
-  { title: "Back Workout", category: "Back", videoUrl: "https://www.youtube.com/embed/your-back-video-id" },
-  { title: "Leg Workout", category: "Legs", videoUrl: "https://www.youtube.com/embed/your-leg-video-id" },
-  { title: "Arm Workout", category: "Arms", videoUrl: "https://www.youtube.com/embed/your-arm-video-id" },
-  { title: "Shoulder Workout", category: "Shoulders", videoUrl: "https://www.youtube.com/embed/your-shoulder-video-id" },
+  { title: "Chest Workout", category: "Chest", videoUrl: "https://youtu.be/lvk2PMsuS88?si=BB0aWTx1NuNq4H8H" },
+  { title: "Back Workout", category: "Back", videoUrl: "https://youtu.be/wpHO3DZpE4w?si=Zf5a14Zd0R4Ven0t" },
+  { title: "Leg Workout", category: "Legs", videoUrl: "https://youtu.be/QKInsLdqitQ?si=M9vdj6PaX10Dpuwc" },
+  { title: "Arm Workout", category: "Arms", videoUrl: "https://youtu.be/20-YGOXNs30?si=1P_pZJ70UxDuPxDU" },
+  { title: "Shoulder Workout", category: "Shoulders", videoUrl: "https://youtu.be/hQrb2gghgd4?si=-mDRYGcRrfsRfIfm" },
 ];
 
 const categories = ["All", "Chest", "Back", "Legs", "Arms", "Shoulders"];
