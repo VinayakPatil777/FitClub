@@ -2,7 +2,7 @@ import { useState } from "react";
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import "../Signin/Signup.css"; // Changed filename to avoid overrides
 
@@ -45,11 +45,18 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit" className="loginButton">Login</button>
+          <button type="submit" className="loginButton">
+            Login
+          </button>
         </form>
         <p className="signupText">
-          New user? <NavLink to="/signup" className="signupLink">Sign up here</NavLink>
+          New user?{" "}
+          <NavLink to="/signup" className="signupLink">
+            Sign up here
+          </NavLink>
         </p>
+
+        <Link to="/forgot-password" style={{color:"white", margin:"10px"}}>Forgot Password?</Link>
       </div>
     </div>
   );

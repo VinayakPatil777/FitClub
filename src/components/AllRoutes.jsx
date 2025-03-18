@@ -17,6 +17,7 @@ import Contact from './contact/Contact';
 import Login from '../UI/Login.jsx/Login.jsx';
 import Signup from '../UI/Signin/Signup.jsx';
 import Settings from '../UI/Settings.jsx';
+import ForgotPassword from '../UI/ForgotPassword.jsx';
 // import { useAuth0 } from "@auth0/auth0-react";
 
 const AllRoutes = () => {
@@ -40,6 +41,8 @@ const AllRoutes = () => {
         <Route path="/login" element={<Login/>} />
         <Route path="/membership" element={<Pricing />} />
         <Route path="/checkout" element={<Checkout />} />
+
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         {/* <Route path="/settings" element={<Settings />} /> */}
 
         
