@@ -14,23 +14,33 @@ const nav__links = [
   { path: "/contact", display: "Contact Us" },
 ];
 
+// Simulate fetching user plan (Replace with actual plan data from DB)
+const getUserPlan = (email) => {
+  if (!email) return "Regular Member"; // Default
+  if (email.includes("gold")) return "Gold Member";
+  if (email.includes("standard")) return "Standard Member";
+  return "Regular Member";
+};
+
 const Header = () => {
   const headerRef = useRef(null);
   const [user, setUser] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const dropdownRef = useRef(null);
 
-  // Sticky Header Function
-  const headerFunc = () => {
-    if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-      headerRef.current.classList.add("sticky__header");
-    } else {
-      headerRef.current.classList.remove("sticky__header");
-    }
-  };
-
+  // Sticky Header
   useEffect(() => {
+    const headerFunc = () => {
+      if (window.scrollY > 80) {
+        headerRef.current.classList.add("sticky__header");
+      } else {
+        headerRef.current.classList.remove("sticky__header");
+      }
+    };
+
     window.addEventListener("scroll", headerFunc);
     return () => window.removeEventListener("scroll", headerFunc);
   }, []);
@@ -54,10 +64,22 @@ const Header = () => {
     }
   };
 
-  // Function to get initials for avatar
+  // Get initials for avatar
   const getInitials = (email) => {
     return email ? email.charAt(0).toUpperCase() : "?";
   };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className="header" ref={headerRef}>
@@ -71,52 +93,75 @@ const Header = () => {
             <h2>Fitness Club</h2>
           </div>
 
-          {/* Navigation Menu */}
-          <div className="navigation">
+          <div className={`navigation ${mobileMenuOpen ? "open" : ""}`}>
             <ul className="menu">
               {nav__links.map((item) => (
-                <NavLink className="nav__item" key={item.path} to={item.path}>
-                  {item.display}
-                </NavLink>
+                <li key={item.path}>
+                  <NavLink
+                    to={item.path}
+                    className={({ isActive }) =>
+                      isActive ? "nav__item active" : "nav__item"
+                    }
+                    onClick={() => setMobileMenuOpen(false)} // Close mobile menu on click
+                  >
+                    {item.display}
+                  </NavLink>
+                </li>
               ))}
             </ul>
           </div>
 
-          {/* Right Side - Profile & Login */}
           <div className="nav__right">
-            {location.pathname !== "/login" && location.pathname !== "/signup" && (
-              <>
-                {user ? (
-                  <div className="profile__container">
-                    {/* Profile Avatar */}
+            {location.pathname !== "/login" &&
+              location.pathname !== "/signup" && (
+                <>
+                  {user ? (
                     <div
-                      className="avatar"
                       onClick={() => setShowDropdown(!showDropdown)}
+                      className="profile__container "
+                      ref={dropdownRef}
                     >
-                      {getInitials(user.email)}
-                    </div>
-
-                    {/* Dropdown Menu */}
-                    {showDropdown && (
-                      <div className="profile__dropdown">
-                        <p className="dropdown__item">{user.email}</p>
-                        <button className="dropdown__item logout" onClick={handleLogout}>
-                          Logout
-                        </button>
+                      <div className="avatar" aria-label="User menu">
+                        {getInitials(user.email)}
                       </div>
-                    )}
-                  </div>
-                ) : (
-                  <NavLink to="/login">
-                    <button className="register__btn">Login</button>
-                  </NavLink>
-                )}
-              </>
-            )}
+
+                      {showDropdown && (
+                      <div className="profile__dropdown">
+                      <p className="dropdown__item email">
+                        <>
+                          <i className="ri-mail-check-line icon"></i>
+                          <span>{user.email}</span>
+                        </>
+                      </p>
+                    
+                      {/*<hr className="dropdown__divider" />
+                    
+                       <NavLink to="/settings" className="dropdown__item">
+                        <i className="ri-settings-5-line icon"></i>
+                        <span>Settings</span>
+                      </NavLink> */}
+                    
+                      <button className="dropdown__item logout" onClick={handleLogout}>
+                        <i className="ri-logout-box-r-line icon"></i>
+                        <span>Logout</span>
+                      </button>
+                    </div>
+                      )}
+                    </div>
+                  ) : (
+                    <NavLink to="/login">
+                      <button className="register__btn">Login</button>
+                    </NavLink>
+                  )}
+                </>
+              )}
 
             {/* Mobile Menu Icon */}
-            <span className="mobile__menu">
-              <i className="ri-menu-line"></i>
+            <span
+              className="mobile__menu"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <i className={`ri-${mobileMenuOpen ? "close" : "menu"}-line`}></i>
             </span>
           </div>
         </div>
