@@ -30,8 +30,6 @@ const AllRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/programs" element={<Testimonials />} />
-        <Route path="/membership" element={<Pricing />} />
-        <Route path="/checkout" element={<Checkout />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/exercise" element={<Exercise />} />
@@ -40,6 +38,8 @@ const AllRoutes = () => {
         <Route path="/bmiCalulate" element={<Bpi />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/membership" element={<Pricing />} />
+        <Route path="/checkout" element={<Checkout />} />
         {/* <Route path="/settings" element={<Settings />} /> */}
 
         
