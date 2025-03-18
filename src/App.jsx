@@ -5,6 +5,7 @@ import Header from "./components/Header.jsx";
 import AllRoutes from "./components/AllRoutes";
 import "remixicon/fonts/remixicon.css";
 import { useLocation } from "react-router-dom";
+import TawkTo from "./TawkTo.js";
 
 const App = () => {
   const location = useLocation(); // Get the current route path
@@ -13,6 +14,7 @@ const App = () => {
     <>
       <Header />
       <AllRoutes />
+      <TawkTo />
       {!["/checkout", "/login", "/signup"].includes(location.pathname) && (
         <Footer />
       )}
