@@ -10,7 +10,9 @@ export default function Testimonials() {
     <>
       <section id="programs">
         <div className="container sliders">
-          <h2 className="section__title"><span className="highlights">Full-Length </span>Workout Programs</h2>
+          <h2 className="section__title">
+            <span className="highlights">Full-Length </span>Workout Programs
+          </h2>
           <Swiper
             effect={"cards"}
             grabCursor={true}
@@ -19,61 +21,108 @@ export default function Testimonials() {
           >
             <SwiperSlide>
               <div className="slide__item">
-                <div className="slide__img-01">
-                  <img
-                    src="https://d18zdz9g6n5za7.cloudfront.net/plan/640/640-10651-fb-booty-round-3-4-weeks-of-fun-and-intense-lower-body-training-b234.jpg"
-                    alt="err"
-                  />
+                <div className="slide__img">
+                  {/* YouTube Video Link */}
+                  <a
+                    href="https://youtu.be/yPK7ISPEu3M?si=3g9nK6Bj1QSCTYb2" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src="https://i.ytimg.com/vi/yPK7ISPEu3M/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLA31WXuidJ8iTKViGXrC-yIpxPAuw"
+                      alt="FB Booty Round 3"
+                    />
+                  </a>
                 </div>
-                <h4>42 Min/Day • 4 Weeks</h4>
+                <h4>YOGA</h4>
                 <p>
-                  FB Booty Round 3: 4 Weeks of Fun and Intense Lower Body
-                  Training Build Strength in Your Glutes, Quads, and Hamstrings
+                "Join this guided yoga session to improve flexibility, reduce stress, and find inner balance.
+                 Perfect for all levels, this practice promotes relaxation and well-being."
                 </p>
               </div>
             </SwiperSlide>
+
             <SwiperSlide>
               <div className="slide__item">
-                <div className="slide__img-02">
-                  <img
-                    src="https://d18zdz9g6n5za7.cloudfront.net/plan/640/640-10355-fb-jumpstart-4-weeks-of-lifting-hiit-cardio-and-stretching-b034.jpg"
-                    alt="err"
-                  />
+                <div className="slide__img">
+                  <a
+                    href="https://youtu.be/J212vz33gU4?si=vxlMs-js2fI3xX_q" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src="https://i.ytimg.com/vi/J212vz33gU4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAlq5uTwwxtJyHI6lGBvSsNwYSlwQ"
+                      alt="FB Jumpstart"
+                    />
+                  </a>
+                </div>
+                <h4>HIIT</h4>
+                <p>"Boost your endurance and burn calories with this high-intensity HIIT workout, designed for maximum results in minimal time."</p>
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <div className="slide__item">
+                <div className="slide__img">
+                  <a
+                    href="https://youtu.be/NK4_wsNCC2c?si=nl1M87HELxoExOBN" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src="https://i.ytimg.com/vi/NK4_wsNCC2c/maxresdefault.jpg"
+                      alt="FB Jumpstart"
+                    />
+                  </a>
                 </div>
                 <h4>34 Min/Day • 4 Weeks</h4>
                 <p>
-                  FB Jumpstart - 4 Weeks of Lifting, HIIT, Cardio,<br /> and
+                  FB Jumpstart - 4 Weeks of Lifting, HIIT, Cardio, and
                   Stretching Progressive Workout Length and Intensity.
                 </p>
               </div>
             </SwiperSlide>
+
             <SwiperSlide>
               <div className="slide__item">
-                <div className="slide__img-03">
-                  <img
-                    src="https://d18zdz9g6n5za7.cloudfront.net/plan/640/640-10721-fb-abs-round-3-4-weeks-of-intense-core-training-95d1.jpg"
-                    alt="err"
-                  />
+                <div className="slide__img">
+                  <a
+                    href="https://youtu.be/TwMptdKRspI?si=q8hbbBuu7OB9Aowi" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src="https://i.ytimg.com/vi/TwMptdKRspI/maxresdefault.jpg"
+                      alt="FB Jumpstart"
+                    />
+                  </a>
                 </div>
                 <h4>34 Min/Day • 4 Weeks</h4>
                 <p>
-                  FB Abs Round 3: 4 Weeks of Intense Core Training Intensive
-                  Core Program for Strength and Mobility.
+                  FB Jumpstart - 4 Weeks of Lifting, HIIT, Cardio, and
+                  Stretching Progressive Workout Length and Intensity.
                 </p>
               </div>
             </SwiperSlide>
+
             <SwiperSlide>
               <div className="slide__item">
-                <div className="slide__img-03">
-                  <img
-                    src="https://d18zdz9g6n5za7.cloudfront.net/plan/640/640-10194-4-week-fb-strong-round-3-build-muscle-increase-strength-and-feel-great-b642.jpg"
-                    alt="err"
-                  />
+                <div className="slide__img">
+                  <a
+                    href="https://youtu.be/cUgCrWxOde0?si=JvKzTZvcNETr5FzY" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src="https://i.ytimg.com/vi/cUgCrWxOde0/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDHr2c-oO-mZhRdzVg6OmymAbazDQ"
+                      alt="FB Jumpstart"
+                    />
+                  </a>
                 </div>
-                <h4>40 Min/Day • 4 Weeks</h4>
+                <h4>34 Min/Day • 4 Weeks</h4>
                 <p>
-                  4 Week FB Strong: Round 3 - Build Muscle, Increase Strength,
-                  and Feel Great You Choose: 35 Minutes or 50 Minutes a Day
+                  FB Jumpstart - 4 Weeks of Lifting, HIIT, Cardio, and
+                  Stretching Progressive Workout Length and Intensity.
                 </p>
               </div>
             </SwiperSlide>

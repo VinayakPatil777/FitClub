@@ -69,9 +69,7 @@ const Checkout = () => {
           </div>
           <div id="payment">
             <form id="checkout" onSubmit={handleSubmit}>
-              <button className="card" id="visa" type="button"></button>
-              <button className="card" id="mastercard" type="button"></button>
-
+              <br /><br />
               <label htmlFor="cardnumber">Credit Card Number</label>
               <input
                 id="cardnumber"
