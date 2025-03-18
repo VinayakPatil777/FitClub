@@ -120,3 +120,18 @@
     font-weight: bold;
   }
   
+
+  .profile__btn{
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    background-color: red;
+  }
+
+  .profile__btn img{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+  }

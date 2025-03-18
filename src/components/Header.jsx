@@ -19,7 +19,8 @@ const Header = () => {
   const [user, setUser] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation(); // Get the current route path
+  const location = useLocation(); 
+  const [userData, setUserData] = useState({ name: "", profileImg: "" });
 
   // Sticky Header Function
   const headerFunc = () => {
@@ -45,6 +46,18 @@ const Header = () => {
     });
 
     return () => unsubscribe();
+  }, []);
+  
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!auth.currentUser) return;
+      const userRef = doc(db, "users", auth.currentUser.uid);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        setUserData(userSnap.data());
+      }
+    };
+    fetchUserData();
   }, []);
 
   // Logout Function
@@ -91,14 +104,19 @@ const Header = () => {
                       <div className="profile__container">
                         <button
                           className="register__btn"
-                          onClick={() => setShowDropdown(!showDropdown)}
+                          onClick={handleLogout}
+                          // onClick={() => setShowDropdown(!showDropdown)}
                         >
-                          Profile
+                          LogOut
+                          {/* <img src="" alt="" /> */}
+                          {/* <img src={userData.profileImg || "/default-avatar.png"} alt="Profile"  /> */}
+                          
                         </button>
 
                         {/* Dropdown Menu */}
-                        {showDropdown && (
+                        {/* {showDropdown && (
                           <div className="profile__dropdown">
+                            <h2>{userData.name || "User"}</h2>
                             <NavLink to="/settings" className="dropdown__item">
                               Settings
                             </NavLink>
@@ -112,7 +130,7 @@ const Header = () => {
                               Logout
                             </button>
                           </div>
-                        )}
+                        )} */}
                       </div>
                     ) : (
                       <NavLink to="/login">

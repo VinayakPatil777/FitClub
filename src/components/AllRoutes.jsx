@@ -16,6 +16,7 @@ import Bpi from '../UI/Bpi.jsx'
 import Contact from './contact/Contact';
 import Login from '../UI/Login.jsx/Login.jsx';
 import Signup from '../UI/Signin/Signup.jsx';
+import Settings from '../UI/Settings.jsx';
 // import { useAuth0 } from "@auth0/auth0-react";
 
 const AllRoutes = () => {
@@ -39,6 +40,7 @@ const AllRoutes = () => {
         <Route path="/bmiCalulate" element={<Bpi />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login/>} />
+        {/* <Route path="/settings" element={<Settings />} /> */}
 
         
         {/* <Route path="/track" element={isAuthenticated ? <Track /> : <Login />} /> */}
