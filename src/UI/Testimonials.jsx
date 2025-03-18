@@ -75,10 +75,10 @@ export default function Testimonials() {
                     />
                   </a>
                 </div>
-                <h4>34 Min/Day • 4 Weeks</h4>
+                <h4>PUSH Workout</h4>
                 <p>
-                  FB Jumpstart - 4 Weeks of Lifting, HIIT, Cardio, and
-                  Stretching Progressive Workout Length and Intensity.
+                "Enhance upper body strength with this structured push workout,targeting the chest,
+                 shoulders, and triceps. Designed for optimal muscle engagement and growth."
                 </p>
               </div>
             </SwiperSlide>
@@ -97,10 +97,10 @@ export default function Testimonials() {
                     />
                   </a>
                 </div>
-                <h4>34 Min/Day • 4 Weeks</h4>
+                <h4>LEGS Workout</h4>
                 <p>
-                  FB Jumpstart - 4 Weeks of Lifting, HIIT, Cardio, and
-                  Stretching Progressive Workout Length and Intensity.
+                "Target your quads, hamstrings, and calves with this intense leg workout,
+                 designed to build strength, endurance, and definition."
                 </p>
               </div>
             </SwiperSlide>
@@ -119,10 +119,9 @@ export default function Testimonials() {
                     />
                   </a>
                 </div>
-                <h4>34 Min/Day • 4 Weeks</h4>
+                <h4>BACK Workout</h4>
                 <p>
-                  FB Jumpstart - 4 Weeks of Lifting, HIIT, Cardio, and
-                  Stretching Progressive Workout Length and Intensity.
+                "Target your back, rear delts, and biceps with this focused workout, enhancing strength, definition, and posture."
                 </p>
               </div>
             </SwiperSlide>
