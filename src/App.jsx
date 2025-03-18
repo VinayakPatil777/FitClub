@@ -13,7 +13,9 @@ const App = () => {
     <>
       <Header />
       <AllRoutes />
-      {location.pathname !== "/checkout" || "/login" || "/singup" && <Footer />}
+      {!["/checkout", "/login", "/signup"].includes(location.pathname) && (
+        <Footer />
+      )}
     </>
   );
 };

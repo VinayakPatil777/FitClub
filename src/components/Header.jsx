@@ -23,7 +23,10 @@ const Header = () => {
 
   // Sticky Header Function
   const headerFunc = () => {
-    if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+    if (
+      document.body.scrollTop > 80 ||
+      document.documentElement.scrollTop > 80
+    ) {
       headerRef.current.classList.add("sticky__header");
     } else {
       headerRef.current.classList.remove("sticky__header");
@@ -80,33 +83,45 @@ const Header = () => {
 
           {/* Right Side - Profile & Login */}
           <div className="nav__right">
-   <>{location.pathname !== "/login" && location.pathname !== "/signup" && (
-  <>
-    {user ? (
-      <div className="profile__container">
-        <button className="register__btn" onClick={() => setShowDropdown(!showDropdown)}>
-          Profile
-        </button>
+            <>
+              {location.pathname !== "/login" &&
+                location.pathname !== "/signup" && (
+                  <>
+                    {user ? (
+                      <div className="profile__container">
+                        <button
+                          className="register__btn"
+                          onClick={() => setShowDropdown(!showDropdown)}
+                        >
+                          Profile
+                        </button>
 
-        {/* Dropdown Menu */}
-        {showDropdown && (
-          <div className="profile__dropdown">
-            <NavLink to="/settings" className="dropdown__item">Settings</NavLink>
-            <NavLink to="/user-info" className="dropdown__item">User Info</NavLink>
-            <button className="dropdown__item logout" onClick={handleLogout}>
-              Logout
-            </button>
-          </div>
-        )}
-      </div>
-    ) : (
-      <NavLink to="/login">
-        <button className="register__btn">Login</button>
-      </NavLink>
-    )}
-  </>
-)}
-</>
+                        {/* Dropdown Menu */}
+                        {showDropdown && (
+                          <div className="profile__dropdown">
+                            <NavLink to="/settings" className="dropdown__item">
+                              Settings
+                            </NavLink>
+                            <NavLink to="/user-info" className="dropdown__item">
+                              User Info
+                            </NavLink>
+                            <button
+                              className="dropdown__item logout"
+                              onClick={handleLogout}
+                            >
+                              Logout
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <NavLink to="/login">
+                        <button className="register__btn">Login</button>
+                      </NavLink>
+                    )}
+                  </>
+                )}
+            </>
 
             {/* Mobile Menu Icon */}
             <span className="mobile__menu">
