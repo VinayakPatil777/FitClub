@@ -12,6 +12,7 @@ const Checkout = () => {
   const searchParams = new URLSearchParams(location.search);
 
   const price = searchParams.get("price") || "N/A"; 
+  const name = searchParams.get("plan") || "N/A"; 
 
   const [cardNumber, setCardNumber] = useState("");
   const [cardHolder, setCardHolder] = useState("");
