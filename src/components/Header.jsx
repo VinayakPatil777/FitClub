@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { auth } from "../firebase"; // Import Firebase auth instance
-import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import "../styles/header.css";
 import logo from "../assets/img/vsLogo.jpg";
 import { useLocation } from "react-router-dom";
@@ -19,15 +19,11 @@ const Header = () => {
   const [user, setUser] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation(); 
-  const [userData, setUserData] = useState({ name: "", profileImg: "" });
+  const location = useLocation();
 
   // Sticky Header Function
   const headerFunc = () => {
-    if (
-      document.body.scrollTop > 80 ||
-      document.documentElement.scrollTop > 80
-    ) {
+    if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
       headerRef.current.classList.add("sticky__header");
     } else {
       headerRef.current.classList.remove("sticky__header");
@@ -39,25 +35,12 @@ const Header = () => {
     return () => window.removeEventListener("scroll", headerFunc);
   }, []);
 
+  // Listen for auth state changes
   useEffect(() => {
-    // Listen for auth state changes
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
       setUser(authUser);
     });
-
     return () => unsubscribe();
-  }, []);
-  
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (!auth.currentUser) return;
-      const userRef = doc(db, "users", auth.currentUser.uid);
-      const userSnap = await getDoc(userRef);
-      if (userSnap.exists()) {
-        setUserData(userSnap.data());
-      }
-    };
-    fetchUserData();
   }, []);
 
   // Logout Function
@@ -69,6 +52,11 @@ const Header = () => {
     } catch (error) {
       console.error("Logout Error:", error.message);
     }
+  };
+
+  // Function to get initials for avatar
+  const getInitials = (email) => {
+    return email ? email.charAt(0).toUpperCase() : "?";
   };
 
   return (
@@ -96,50 +84,35 @@ const Header = () => {
 
           {/* Right Side - Profile & Login */}
           <div className="nav__right">
-            <>
-              {location.pathname !== "/login" &&
-                location.pathname !== "/signup" && (
-                  <>
-                    {user ? (
-                      <div className="profile__container">
-                        <button
-                          className="register__btn"
-                          onClick={handleLogout}
-                          // onClick={() => setShowDropdown(!showDropdown)}
-                        >
-                          LogOut
-                          {/* <img src="" alt="" /> */}
-                          {/* <img src={userData.profileImg || "/default-avatar.png"} alt="Profile"  /> */}
-                          
-                        </button>
+            {location.pathname !== "/login" && location.pathname !== "/signup" && (
+              <>
+                {user ? (
+                  <div className="profile__container">
+                    {/* Profile Avatar */}
+                    <div
+                      className="avatar"
+                      onClick={() => setShowDropdown(!showDropdown)}
+                    >
+                      {getInitials(user.email)}
+                    </div>
 
-                        {/* Dropdown Menu */}
-                        {/* {showDropdown && (
-                          <div className="profile__dropdown">
-                            <h2>{userData.name || "User"}</h2>
-                            <NavLink to="/settings" className="dropdown__item">
-                              Settings
-                            </NavLink>
-                            <NavLink to="/user-info" className="dropdown__item">
-                              User Info
-                            </NavLink>
-                            <button
-                              className="dropdown__item logout"
-                              onClick={handleLogout}
-                            >
-                              Logout
-                            </button>
-                          </div>
-                        )} */}
+                    {/* Dropdown Menu */}
+                    {showDropdown && (
+                      <div className="profile__dropdown">
+                        <p className="dropdown__item">{user.email}</p>
+                        <button className="dropdown__item logout" onClick={handleLogout}>
+                          Logout
+                        </button>
                       </div>
-                    ) : (
-                      <NavLink to="/login">
-                        <button className="register__btn">Login</button>
-                      </NavLink>
                     )}
-                  </>
+                  </div>
+                ) : (
+                  <NavLink to="/login">
+                    <button className="register__btn">Login</button>
+                  </NavLink>
                 )}
-            </>
+              </>
+            )}
 
             {/* Mobile Menu Icon */}
             <span className="mobile__menu">
