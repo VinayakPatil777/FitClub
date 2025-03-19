@@ -1,13 +1,37 @@
-import React from 'react'
-import { createContext,useState,useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { auth, db } from "../firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
-const AuthContextProvider = ({children}) => {
-    const [filter,setFilter] = useState("");
-    
+export const useAuth = () => useContext(AuthContext);
 
-    return <AuthContext.Provider value={{filter,setFilter}}>{children}</AuthContext.Provider> 
-}
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [userPlan, setUserPlan] = useState("free"); // Default to Free plan
 
-export default AuthContextProvider
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        const userRef = doc(db, "users", currentUser.uid);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          setUserPlan(userSnap.data().plan || "free");
+        } else {
+          await setDoc(userRef, { plan: "free" });
+        }
+      } else {
+        setUserPlan("free");
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ user, userPlan, setUserPlan }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

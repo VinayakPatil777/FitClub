@@ -21,7 +21,7 @@ const Hero = () => {
                 data-aos-duration="1000"
                 data-aos="fade-up"
               >
-                Exercise is the key to a{" "}
+                Exercise is the key to a
                 <span className="highlights">Healthy</span> Lifestyle
               </h2>
               <p data-aos-duration="1100" data-aos="fade-up" data-aos-delay="100">
