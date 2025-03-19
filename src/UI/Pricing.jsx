@@ -29,19 +29,20 @@ const Pricing = () => {
         </div>
 
         <div className="pricing__wrapper">
-          {/* Regular Member */}
+          {/* Free Member */}
           <div className="pricing__item" data-aos-duration="1500" data-aos="fade-up">
             <div className="pricing__card-top">
-              <h2>Regular Member (Free 1 month)</h2>    
-              <h2 className="pricing">Rs 350 <span>/month</span></h2>
+              <h2>Free Plan</h2>    
+              <h2 className="pricing">Rs 0 <span>/month</span></h2>
             </div>
             <div className="services">
               <ul>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Unlimited access to the App</li>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Customer support</li>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Personal trainer</li>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Personal Nutritionist</li>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Demo online classes</li>
+                <li>✅ Access to free workouts</li>
+                <li>✅ BMI Calculator</li>
+                <li>✅ Limited articles & guides</li>
+                <li>❌ AI Health Assistant</li>
+                <li>❌ Program Page</li>
+                <li>❌ Live Chat Support (Tawk.to)</li>
               </ul>
               <button className='register__btn' 
                 onClick={() => handleBuyNowClick('Regular Member', 350, '1 month')}>
@@ -58,12 +59,12 @@ const Pricing = () => {
             </div>
             <div className="services">
               <ul>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Unlimited access to the App</li>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Customer support</li>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Personal trainer</li>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Personal Nutritionist</li>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Free online classes</li>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Free access to our gym centers</li>
+                <li>✅ Access to free workouts</li>
+                <li>✅ BMI Calculator</li>
+                <li>✅ Limited articles & guides</li>
+                <li>✅ Unlimited AI Health Assistant Access</li>
+                <li>✅ Program Page</li>
+                <li>✅ Live Chat Support (Tawk.to)</li>
               </ul>
               <button className='register__btn' 
                 onClick={() => handleBuyNowClick('Gold Member', 6999, '1 year')}>
@@ -80,11 +81,12 @@ const Pricing = () => {
             </div>
             <div className="services">
               <ul>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Unlimited access to the App</li>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Customer support</li>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Personal trainer</li>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Personal Nutritionist</li>
-                <li><i className="ri-checkbox-blank-circle-fill"></i> Free online classes</li>
+                <li>✅ Access to free workouts</li>
+                <li>✅ BMI Calculator</li>
+                <li>✅ Limited articles & guides</li>
+                <li>✅ 3 AI Health Assistant Searches/Week </li>
+                <li>✅ Program Page</li>
+                <li>❌ Live Chat Support (Tawk.to)</li>
               </ul>
               <button className='register__btn' 
                 onClick={() => handleBuyNowClick('Standard Member', 4999, '1 year')}>
