@@ -21,7 +21,7 @@ const Pricing = () => {
   const handleBuyNowClick = (plan, price, duration) => {
     if (price === "Free") {
       if (user) {
-        navigate("/home");
+        navigate("/");
       } else {
         navigate("/login");
       }
