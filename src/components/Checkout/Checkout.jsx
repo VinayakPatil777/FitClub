@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Cleave from "cleave.js/react";
+import { auth, db } from "../../firebase"; // Import Firebase auth & Firestore
+import { doc, updateDoc } from "firebase/firestore";
 
 import "./Checkout.css";
 import checkoutImage from "../../assets/img/vsLogo.jpg";
 
 const Checkout = () => {
   const navigate = useNavigate();
-  // const { name = "Regular", price = 350 } = location.state || {}; // Default values
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
@@ -25,7 +26,7 @@ const Checkout = () => {
 
   const currentYear = new Date().getFullYear();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!cardNumber || !cardHolder || !expiryMonth || !expiryYear || !cvc) {
@@ -36,17 +37,38 @@ const Checkout = () => {
     setLoading(true);
     setPaymentStatus("");
 
-    setTimeout(() => {
+    setTimeout(async () => {
       const isSuccess = Math.random() > 0.3; // 70% success rate
 
       setLoading(false);
       if (isSuccess) {
         setPaymentStatus("Payment successful! Thank you for your purchase.");
+        await updateUserPlan(name); // Update plan in Firestore
         startCountdown();
       } else {
         setPaymentStatus("Payment failed. Please try again.");
       }
     }, 5000);
+  };
+
+  const updateUserPlan = async (plan) => {
+    const user = auth.currentUser;
+    if (!user) {
+      setPaymentStatus("User not logged in.");
+      return;
+    }
+
+    try {
+      const userRef = doc(db, "users", user.uid);
+      await updateDoc(userRef, {
+        plan: plan, // Update the plan field in Firestore
+      });
+
+      console.log("Plan updated successfully in Firestore.");
+    } catch (error) {
+      console.error("Error updating plan:", error);
+      setPaymentStatus("Error updating your plan. Please contact support.");
+    }
   };
 
   const startCountdown = () => {
