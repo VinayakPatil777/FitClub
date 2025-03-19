@@ -25,3 +25,17 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 const analytics = getAnalytics(app);
 export const storage = getStorage(app);
+
+
+export const getUserSubscription = async (userId) => {
+  if (!userId) return null;
+  
+  const userRef = doc(db, "users", userId);
+  const userSnap = await getDoc(userRef);
+
+  if (userSnap.exists()) {
+    return userSnap.data().subscription; // Ensure subscription field exists
+  }
+  
+  return null;
+};
