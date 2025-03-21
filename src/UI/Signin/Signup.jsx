@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase"; // Import Firestore DB
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore"; // Firestore functions
 import { ToastContainer, toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import "./Signup.css"; 
+import "./Signup.css";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +14,15 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Store user data in Firestore with default plan as "Free"
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        plan: "Free",
+      });
+
       toast.success("Signup Successful!", { position: "top-right" });
     } catch (error) {
       console.error("Error signing up:", error);
@@ -52,3 +61,4 @@ const Signup = () => {
 };
 
 export default Signup;
+  

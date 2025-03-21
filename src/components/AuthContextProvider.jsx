@@ -1,37 +1,37 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { auth, db } from "../firebase";
-import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 
 const AuthContext = createContext();
 
-export const useAuth = () => useContext(AuthContext);
-
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [userPlan, setUserPlan] = useState("free"); // Default to Free plan
+  const [plan, setPlan] = useState("Free");
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    const unsubscribeAuth = auth.onAuthStateChanged((currentUser) => {
       setUser(currentUser);
+      
       if (currentUser) {
         const userRef = doc(db, "users", currentUser.uid);
-        const userSnap = await getDoc(userRef);
-        if (userSnap.exists()) {
-          setUserPlan(userSnap.data().plan || "free");
-        } else {
-          await setDoc(userRef, { plan: "free" });
-        }
-      } else {
-        setUserPlan("free");
+        const unsubscribePlan = onSnapshot(userRef, (docSnap) => {
+          if (docSnap.exists()) {
+            setPlan(docSnap.data().plan);
+          }
+        });
+
+        return () => unsubscribePlan();
       }
     });
-    return () => unsubscribe();
+
+    return () => unsubscribeAuth();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, userPlan, setUserPlan }}>
+    <AuthContext.Provider value={{ user, plan }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(AuthContext);

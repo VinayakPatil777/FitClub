@@ -1,35 +1,19 @@
-import React, { useEffect } from "react";
-import { Navigate, useLocation } from "react-router-dom";
-import { toast } from "react-toastify";
+import React from "react";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "./AuthContextProvider";
 
 const PrivateRoute = ({ element, requiredPlan }) => {
-  const { userPlan } = useAuth();
-  const location = useLocation();
+  const { user, plan } = useAuth(); // Get user & plan from AuthContext
 
-  useEffect(() => {
-    if (
-      !userPlan ||
-      (requiredPlan === "standard" && userPlan === "free") ||
-      (requiredPlan === "gold" && userPlan !== "gold")
-    ) {
-      toast.warn("Upgrade to access this content!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-    }
-  }, [location.pathname]); // Runs only when the route changes
-
-  if (
-    requiredPlan === "standard" &&
-    (userPlan === "standard" || userPlan === "gold")
-  ) {
-    return element;
-  } else if (requiredPlan === "gold" && userPlan === "gold") {
-    return element;
-  } else {
-    return <Navigate to="/membership" />;
+  if (!user) {
+    return <Navigate to="/login" />;
   }
+
+  if (requiredPlan && plan !== requiredPlan) {
+    return <Navigate to="/membership" />; // Redirect if plan is insufficient
+  }
+
+  return element;
 };
 
 export default PrivateRoute;

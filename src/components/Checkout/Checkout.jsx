@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Cleave from "cleave.js/react";
 import { auth, db } from "../../firebase"; // Import Firebase auth & Firestore
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
 
 import "./Checkout.css";
 import checkoutImage from "../../assets/img/vsLogo.jpg";
@@ -23,8 +23,36 @@ const Checkout = () => {
   const [loading, setLoading] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState("");
   const [timer, setTimer] = useState(10);
+  const [currentPlan, setCurrentPlan] = useState("");
 
   const currentYear = new Date().getFullYear();
+
+  useEffect(() => {
+    const fetchUserPlan = async () => {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const storedPlan = localStorage.getItem("userPlan");
+      if (storedPlan) {
+        setCurrentPlan(storedPlan);
+        return;
+      }
+
+      try {
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          setCurrentPlan(userData.plan || "Free");
+          localStorage.setItem("userPlan", userData.plan || "Free"); // Store in localStorage
+        }
+      } catch (error) {
+        console.error("Error fetching user plan:", error);
+      }
+    };
+
+    fetchUserPlan();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,7 +71,7 @@ const Checkout = () => {
       setLoading(false);
       if (isSuccess) {
         setPaymentStatus("Payment successful! Thank you for your purchase.");
-        await updateUserPlan(name); // Update plan in Firestore
+        await updateUserPlan(name);
         startCountdown();
       } else {
         setPaymentStatus("Payment failed. Please try again.");
@@ -64,7 +92,10 @@ const Checkout = () => {
         plan: plan, // Update the plan field in Firestore
       });
 
-      console.log("Plan updated successfully in Firestore.");
+      localStorage.setItem("userPlan", plan); // Store the new plan in localStorage
+      setCurrentPlan(plan); // Update local state
+
+      // console.log("Plan updated successfully in Firestore and localStorage.");
     } catch (error) {
       console.error("Error updating plan:", error);
       setPaymentStatus("Error updating your plan. Please contact support.");
@@ -93,7 +124,8 @@ const Checkout = () => {
               <img id="product" src={checkoutImage} alt="Activity Bracelet Surge" />
             </div>
             <h2 className="section__title customText">Fitness Club</h2>
-            <p>Plan: {name}</p>
+            <p>Current Plan: {currentPlan}</p>
+            <p>New Plan: {name}</p>
             <div id="price">
               <h2>Rs {price}</h2>
             </div>

@@ -30,7 +30,15 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dropdownRef = useRef(null);
-
+  const [plan, setPlan] = useState(() => {
+    return (localStorage.getItem("userPlan") || "free").trim().toLowerCase();
+  });
+  useEffect(() => {
+    const storedPlan = localStorage.getItem("userPlan");
+    if (storedPlan) {
+      setPlan(storedPlan.trim().toLowerCase());
+    }
+  }, []);
   // Sticky Header
   useEffect(() => {
     const headerFunc = () => {
@@ -126,26 +134,27 @@ const Header = () => {
                       </div>
 
                       {showDropdown && (
-                      <div className="profile__dropdown">
-                      <p className="dropdown__item email">
-                        <>
-                          <i className="ri-mail-check-line icon"></i>
-                          <span>{user.email}</span>
-                        </>
-                      </p>
-                    
-                      {/*<hr className="dropdown__divider" />
-                    
-                       <NavLink to="/settings" className="dropdown__item">
-                        <i className="ri-settings-5-line icon"></i>
-                        <span>Settings</span>
-                      </NavLink> */}
-                    
-                      <button className="dropdown__item logout" onClick={handleLogout}>
-                        <i className="ri-logout-box-r-line icon"></i>
-                        <span>Logout</span>
-                      </button>
-                    </div>
+                        <div className="profile__dropdown">
+                          <p className="dropdown__item email">
+                            <>
+                              <i className="ri-mail-check-line icon"></i>
+                              <span>{user.email}</span>
+                            </>
+                          </p>
+
+                          <p className="dropdown__item email">
+                          {plan === "free" ? <span>Free Access</span> : <span>Premium Access</span>}
+
+                          </p>
+
+                          <button
+                            className="dropdown__item logout"
+                            onClick={handleLogout}
+                          >
+                            <i className="ri-logout-box-r-line icon"></i>
+                            <span>Logout</span>
+                          </button>
+                        </div>
                       )}
                     </div>
                   ) : (

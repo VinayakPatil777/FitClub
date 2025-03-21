@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "./AuthContextProvider"; // Import useAuth to check authentication
+import { useAuth } from "./AuthContextProvider"; 
 import Home from "../UI/Home";
 import Testimonials from "../UI/Testimonials";
 import Pricing from "../UI/Pricing";
@@ -14,10 +14,10 @@ import Login from "../UI/Login.jsx/Login.jsx";
 import Signup from "../UI/Signin/Signup.jsx";
 import ForgotPassword from "../UI/ForgotPassword.jsx";
 import Checkout from "./Checkout/Checkout";
-import PrivateRoute from "./PrivateRoute"; // Import the private route for membership-based access
+import PrivateRoute from "./PrivateRoute"; 
 
 const AllRoutes = () => {
-  const { user } = useAuth(); // Get authentication state
+  const { user } = useAuth(); 
 
   return (
     <Routes>
@@ -26,9 +26,8 @@ const AllRoutes = () => {
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/exercise" element={<Exercise />} />
-      <Route path="/about" element={<About />} />
-        <Route path="/diet-plan" element={<PrivateRoute element={<Dietplan />} requiredPlan="standard" />} />
-      {/* <Route path="/diet-plan" element={<Dietplan />} /> */}
+      <Route path="/about" element={<About />} />       
+      <Route path="/diet-plan" element={<Dietplan />} />
       <Route path="/bmiCalulate" element={<Bpi />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
@@ -42,14 +41,8 @@ const AllRoutes = () => {
       />
 
       {/* Private Routes Based on Membership Plan */}
-      <Route
-        path="/premium-content"
-        element={<PrivateRoute element={<Testimonials />} requiredPlan="standard" />}
-      />
-      <Route
-        path="/gold-exclusive"
-        element={<PrivateRoute element={<Pricing />} requiredPlan="gold" />}
-      />
+      <Route path="/premium-content" element={<PrivateRoute element={<Testimonials />} requiredPlan="standard" />} />
+      <Route path="/gold-exclusive" element={<PrivateRoute element={<Pricing />} requiredPlan="gold" />} />
     </Routes>
   );
 };

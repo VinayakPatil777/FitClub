@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase"; // Import Firestore
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore"; // Import Firestore functions
 import { ToastContainer, toast } from "react-toastify";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import "../Signin/Signup.css"; // Changed filename to avoid overrides
+import "../Signin/Signup.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,11 +15,25 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Fetch user's subscription plan from Firestore
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        const userData = userSnap.data();
+        console.log("User Plan:", userData.plan); // Debugging
+        localStorage.setItem("userPlan", userData.plan); // Store plan in local storage or context
+      } else {
+        console.warn("No user data found!");
+      }
+
       toast.success("Login Successful!", { position: "top-right" });
       setTimeout(() => {
         navigate("/");
-      }, 3000);
+      }, 2000);
     } catch (error) {
       console.error("Error logging in:", error);
       toast.error(error.message, { position: "top-right" });
@@ -55,8 +70,9 @@ const Login = () => {
             Sign up here
           </NavLink>
         </p>
-
-        <Link to="/forgot-password" style={{color:"white", margin:"10px"}}>Forgot Password?</Link>
+        <Link to="/forgot-password" style={{ color: "white", margin: "10px" }}>
+          Forgot Password?
+        </Link>
       </div>
     </div>
   );

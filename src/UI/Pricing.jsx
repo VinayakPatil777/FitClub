@@ -6,21 +6,32 @@ import { getUserSubscription } from "../firebase";
 
 const Pricing = () => {
   const navigate = useNavigate();
-  const { user } = useAuth(); 
-  const [userPlan, setUserPlan] = useState(null);
+  const { user } = useAuth();
+  const [userPlan, setUserPlan] = useState(localStorage.getItem("userPlan") || null);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch user plan on component mount
-  useEffect (() => {
+  useEffect(() => {
     if (user) {
-      getUserSubscription(user.uid).then((plan) => {
-        setUserPlan(plan);
-      });
+      getUserSubscription(user.uid)
+        .then((plan) => {
+          setUserPlan(plan);
+          localStorage.setItem("userPlan", plan); // Store in localStorage
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching subscription:", error);
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
     }
   }, [user]);
 
-  const handleBuyNowClick = (plan, price, duration) => {
+  const handleBuyNowClick = async (plan, price, duration) => {
     if (price === "Free") {
       if (user) {
+        setUserPlan("Regular Member"); 
+        localStorage.setItem("userPlan", "Regular Member"); // Update localStorage
         navigate("/");
       } else {
         navigate("/login");
@@ -28,14 +39,13 @@ const Pricing = () => {
       return;
     }
 
-    if (userPlan === plan) {
-      return; // Do nothing if already purchased
-    }
+    if (userPlan === plan) return; // Prevent re-purchase
 
-    navigate(`/checkout?plan=${encodeURIComponent(plan)}&price=${price}&duration=${duration}`);
+    // Navigate to checkout
+    navigate(
+      `/checkout?plan=${encodeURIComponent(plan)}&price=${price}&duration=${duration}`
+    );
   };
-
-  
 
   return (
     <section id="membership">
@@ -44,20 +54,17 @@ const Pricing = () => {
           <h2 className="section__title">
             Premium <span className="highlights">Subscription</span> plan
           </h2>
-          <p>
-            Health & Fitness is a popular nutrition and exercise tracking app
-            that offers a premium subscription service.
-            <br />
-            The premium version includes advanced nutrient tracking, customized
-            goals and advice, and exclusive content.
-          </p>
+          <p>Choose a plan that fits your fitness goals.</p>
+          {userPlan && (
+            <p className="current-plan">🔹 Current Plan: <strong>{userPlan}</strong></p>
+          )}
         </div>
 
         <div className="pricing__wrapper">
           {/* Free Member */}
-          <div className="pricing__item" data-aos-duration="1500" data-aos="fade-up">
+          <div className="pricing__item" data-aos="fade-up">
             <div className="pricing__card-top">
-              <h2>Free Plan</h2>    
+              <h2>Free Plan</h2>
               <h2 className="pricing">Rs 0 <span>/month</span></h2>
             </div>
             <div className="services">
@@ -69,73 +76,50 @@ const Pricing = () => {
                 <li>❌ Program Page</li>
                 <li>❌ Live Chat Support (Tawk.to)</li>
               </ul>
-              <button
-                className="register__btn"
-                onClick={() =>
-                  handleBuyNowClick("Regular Member", "Free", "Lifetime")
-                }
-              >
-                  {user ? "Get Started" : "Login"}
+              <button className="register__btn" onClick={() => handleBuyNowClick("Regular Member", "Free", "Lifetime")}>
+                {user ? "Get Started" : "Login"}
               </button>
             </div>
           </div>
 
           {/* Gold Member */}
-          <div
-            className="pricing__item pricing__item-02"
-            data-aos-duration="1500"
-            data-aos="fade-up"
-          >
+          <div className="pricing__item pricing__item-02" data-aos="fade-up">
             <div className="pricing__card-top">
               <h2>Gold Member</h2>
-              <h2 className="pricing">
-                Rs 6999 <span>/year</span>
-              </h2>
+              <h2 className="pricing">Rs 6999 <span>/year</span></h2>
             </div>
             <div className="services">
               <ul>
-                <li>✅ Access to free workouts</li>
-                <li>✅ BMI Calculator</li>
-                <li>✅ Limited articles & guides</li>
+                <li>✅ All free plan features</li>
                 <li>✅ Unlimited AI Health Assistant Access</li>
                 <li>✅ Program Page</li>
                 <li>✅ Live Chat Support (Tawk.to)</li>
               </ul>
-              <button className="register__btn" 
+              <button className="register__btn"
                 onClick={() => handleBuyNowClick("Gold Member", "6999", "1 year")}
-                disabled={userPlan === "Gold Member"}
-              >
-                {userPlan === "Gold Member" ? "Purchased" : "Buy Now"}
+                disabled={loading || userPlan === "Gold Member"}>
+                {loading ? "Checking..." : userPlan === "Gold Member" ? "Purchased" : "Buy Now"}
               </button>
             </div>
           </div>
 
           {/* Standard Member */}
-          <div
-            className="pricing__item"
-            data-aos-duration="1500"
-            data-aos="fade-up"
-          >
+          <div className="pricing__item" data-aos="fade-up">
             <div className="pricing__card-top">
               <h2>Standard Member</h2>
-              <h2 className="pricing">
-                Rs 4999 <span>/year</span>
-              </h2>
+              <h2 className="pricing">Rs 4999 <span>/year</span></h2>
             </div>
             <div className="services">
               <ul>
-                <li>✅ Access to free workouts</li>
-                <li>✅ BMI Calculator</li>
-                <li>✅ Limited articles & guides</li>
-                <li>✅ 3 AI Health Assistant Searches/Week </li>
+                <li>✅ All free plan features</li>
+                <li>✅ 3 AI Health Assistant Searches/Week</li>
                 <li>✅ Program Page</li>
                 <li>❌ Live Chat Support (Tawk.to)</li>
               </ul>
               <button className="register__btn"
                 onClick={() => handleBuyNowClick("Standard Member", "4999", "1 year")}
-                disabled={userPlan === "Standard Member"}
-              >
-                {userPlan === "Standard Member" ? "Purchased" : "Buy Now"}
+                disabled={loading || userPlan === "Standard Member"}>
+                {loading ? "Checking..." : userPlan === "Standard Member" ? "Purchased" : "Buy Now"}
               </button>
             </div>
           </div>
