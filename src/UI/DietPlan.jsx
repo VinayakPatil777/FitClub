@@ -30,24 +30,38 @@ const DietPlan = () => {
   // Restrict access based on plan
 
   console.log(plan);
-
   const handleSend = async (query) => {
     if (!query.trim()) {
       toast.error("Please enter a prompt before sending!");
       return;
     }
-
+  
     setClicked(true);
-
+  
     const newMessages = [...messages, { text: query, sender: "user" }];
     setMessages(newMessages);
     setInput("");
     setLoading(true);
-
+  
     try {
       const result = await model.generateContent(query);
-      const botReply = result.candidates[0].content.parts[0].text; // Corrected response parsing
+      
+      // ✅ Updated path based on the API response structure
+      console.log("API Response:", result);
+      
+      const candidates = result?.response?.candidates;
+      if (!candidates || candidates.length === 0) {
+        throw new Error("Invalid response: No candidates found");
+      }
+  
+      const contentParts = candidates[0]?.content?.parts;
+      if (!contentParts || contentParts.length === 0) {
+        throw new Error("Invalid response: No content parts found");
+      }
+  
+      const botReply = contentParts[0].text;
       setMessages([...newMessages, { text: botReply, sender: "bot" }]);
+  
     } catch (error) {
       console.error("Error fetching response:", error);
       toast.error("Failed to get a response. Try again later.");
@@ -55,6 +69,9 @@ const DietPlan = () => {
       setLoading(false);
     }
   };
+  
+  
+  
 
   const prompts = [
     "Suggest a high-protein diet",
