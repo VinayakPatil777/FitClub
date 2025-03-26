@@ -5,6 +5,12 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 import { EffectCards } from "swiper";
 
+import yoga from '../assets/img/yoga.jpg'
+import HIIT from '../assets/img/hiit.jpg'
+import PUSH from '../assets/img/push workout.jpg'
+import LEGS from '../assets/img/leg workout.jpg'
+import PULL from '../assets/img/pull workout.jpg'
+
 export default function Testimonials() {
   return (
     <>
@@ -28,10 +34,7 @@ export default function Testimonials() {
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
-                    <img
-                      src="https://i.ytimg.com/vi/yPK7ISPEu3M/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLA31WXuidJ8iTKViGXrC-yIpxPAuw"
-                      alt="FB Booty Round 3"
-                    />
+                    <img id="product" src={yoga} alt="Yoga" />
                   </a>
                 </div>
                 <h4>YOGA</h4>
@@ -50,10 +53,7 @@ export default function Testimonials() {
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
-                    <img
-                      src="https://i.ytimg.com/vi/J212vz33gU4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAlq5uTwwxtJyHI6lGBvSsNwYSlwQ"
-                      alt="FB Jumpstart"
-                    />
+                    <img id="product" src={HIIT} alt="HIIT" />
                   </a>
                 </div>
                 <h4>HIIT</h4>
@@ -69,10 +69,7 @@ export default function Testimonials() {
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
-                    <img
-                      src="https://i.ytimg.com/vi/NK4_wsNCC2c/maxresdefault.jpg"
-                      alt="FB Jumpstart"
-                    />
+                   <img id="product" src={PUSH} alt="PUSH Workout" />
                   </a>
                 </div>
                 <h4>PUSH Workout</h4>
@@ -91,10 +88,7 @@ export default function Testimonials() {
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
-                    <img
-                      src="https://i.ytimg.com/vi/TwMptdKRspI/maxresdefault.jpg"
-                      alt="FB Jumpstart"
-                    />
+                    <img id="product" src={LEGS} alt="LEGS Workout" />
                   </a>
                 </div>
                 <h4>LEGS Workout</h4>
@@ -113,10 +107,7 @@ export default function Testimonials() {
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
-                    <img
-                      src="https://i.ytimg.com/vi/cUgCrWxOde0/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDHr2c-oO-mZhRdzVg6OmymAbazDQ"
-                      alt="FB Jumpstart"
-                    />
+                    <img id="product" src={PULL} alt="PULL Workout" />
                   </a>
                 </div>
                 <h4>BACK Workout</h4>
