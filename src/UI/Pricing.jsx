@@ -90,7 +90,9 @@ const Pricing = () => {
             </div>
             <div className="services">
               <ul>
-                <li>✅ All free plan features</li>
+                <li>✅ Access to free workouts</li>
+                <li>✅ BMI Calculator</li>
+                <li>✅ Limited articles & guides</li>
                 <li>✅ Unlimited AI Health Assistant Access</li>
                 <li>✅ Program Page</li>
                 <li>✅ Live Chat Support (Tawk.to)</li>
@@ -111,7 +113,9 @@ const Pricing = () => {
             </div>
             <div className="services">
               <ul>
-                <li>✅ All free plan features</li>
+                <li>✅ Access to free workouts</li>
+                <li>✅ BMI Calculator</li>
+                <li>✅ Limited articles & guides</li>
                 <li>✅ 3 AI Health Assistant Searches/Week</li>
                 <li>✅ Program Page</li>
                 <li>❌ Live Chat Support (Tawk.to)</li>

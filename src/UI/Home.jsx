@@ -11,8 +11,7 @@ const Home = () => {
       <Exercise />
       <Start />
       <SecGallery />
-
-
+      
       <AIAssistant/>
     </>
   );
