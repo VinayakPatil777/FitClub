@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { supabase } from "../supabaseClient";
 import Home from "../UI/Home";
 import Testimonials from "../UI/Testimonials";
 import Pricing from "../UI/Pricing";
@@ -15,6 +16,20 @@ import ForgotPassword from "../UI/ForgotPassword.jsx";
 import Checkout from "./Checkout/Checkout";
 
 const AllRoutes = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUser(session ? session.user : null);
+      setLoading(false);
+    };
+    
+    checkAuth();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
 
   return (
     <Routes>
@@ -31,10 +46,8 @@ const AllRoutes = () => {
       <Route path="/membership" element={<Pricing />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
 
-      {/* <Route
-        path="/checkout"
-        element={ture ? <Checkout /> : <Navigate to="/login" />}
-      /> */}
+      {/* Restrict checkout route */}
+      <Route path="/checkout" element={user ? <Checkout /> : <Navigate to="/login" />} />
     </Routes>
   );
 };

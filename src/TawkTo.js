@@ -1,37 +1,55 @@
-import { useEffect } from "react";
-// import { useAuth } from "./components/AuthContextProvider.jsx";
+import { useEffect, useState } from "react";
+import { supabase } from "./supabaseClient";
 
 const TawkTo = () => {
-  // const { userPlan } = useAuth();
+  const [userPlan, setUserPlan] = useState(null);
 
-  // useEffect(() => {
-  //   if (!userPlan) {
-  //     console.warn("User plan is undefined. Waiting for update...");
-  //     return;
-  //   }
+  useEffect(() => {
+    const fetchUserPlan = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
 
-  //   console.log("Current Plan:", userPlan);
+      if (!session) {
+        console.warn("No active session. User not logged in.");
+        return;
+      }
 
-  //   if (userPlan !== "gold") {
-  //     console.log("Live chat is only available for Gold members.");
-  //     return;
-  //   }
+      const { data, error } = await supabase
+        .from("users")
+        .select("plan")
+        .eq("id", session.user.id)
+        .single();
 
-  //   console.log("Loading TawkTo live chat...");
+      if (error) {
+        console.error("Error fetching user plan:", error.message);
+      } else {
+        setUserPlan(data.plan.toLowerCase());
+      }
+    };
 
-  //   const script = document.createElement("script");
-  //   script.async = true;
-  //   script.src = "https://embed.tawk.to/6714a7ec2480f5b4f5906b9a/1iakavu8e";
-  //   script.charset = "UTF-8";
-  //   script.setAttribute("crossorigin", "*");
+    fetchUserPlan();
+  }, []);
 
-  //   document.body.appendChild(script);
+  useEffect(() => {
+    if (userPlan !== "gold") {
+      console.log("Live chat is only available for Gold members.");
+      return;
+    }
 
-  //   return () => {
-  //     console.log("Removing TawkTo script...");
-  //     document.body.removeChild(script);
-  //   };
-  // }, [userPlan]);
+    console.log("Loading TawkTo live chat...");
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://embed.tawk.to/6714a7ec2480f5b4f5906b9a/1iakavu8e";
+    script.charset = "UTF-8";
+    script.setAttribute("crossorigin", "*");
+
+    document.body.appendChild(script);
+
+    return () => {
+      console.log("Removing TawkTo script...");
+      document.body.removeChild(script);
+    };
+  }, [userPlan]);
 
   return null;
 };

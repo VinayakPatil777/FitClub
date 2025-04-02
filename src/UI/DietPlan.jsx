@@ -1,77 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { supabase } from "../supabaseClient"; // Import Supabase client
 import "../styles/dietplan.css"; // Import CSS file
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactMarkdown from "react-markdown";
 
-const API_KEY = "AIzaSyD_MmGjSOMtP4I_6n5Mh1AX1lM_ohsTLEc"; // Replace with your actual API Key
-
-const genAI = new GoogleGenerativeAI(API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-
 const DietPlan = () => {
-  const [plan, setPlan] = useState(() => {
-    return (localStorage.getItem("userPlan") || "free").trim().toLowerCase();
-  });
-
+  const [plan, setPlan] = useState(null);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [clicked, setClicked] = useState(false);
 
+  // Fetch user plan from Supabase
   useEffect(() => {
-    const storedPlan = localStorage.getItem("userPlan");
-    if (storedPlan) {
-      setPlan(storedPlan.trim().toLowerCase());
-    }
+    const fetchUserPlan = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (session) {
+        const userId = session.user.id;
+        const { data, error } = await supabase
+          .from("users")
+          .select("plan")
+          .eq("id", userId)
+          .single();
+
+        if (!error && data) {
+          setPlan(data.plan.toLowerCase());
+        } else {
+          console.error("Error fetching user plan:", error);
+        }
+      } else {
+        setPlan("free"); // Default to free if not logged in
+      }
+    };
+
+    fetchUserPlan();
   }, []);
-
-  // Restrict access based on plan
-
-  console.log(plan);
-  const handleSend = async (query) => {
-    if (!query.trim()) {
-      toast.error("Please enter a prompt before sending!");
-      return;
-    }
-  
-    setClicked(true);
-  
-    const newMessages = [...messages, { text: query, sender: "user" }];
-    setMessages(newMessages);
-    setInput("");
-    setLoading(true);
-  
-    try {
-      const result = await model.generateContent(query);
-      
-      // ✅ Updated path based on the API response structure
-      console.log("API Response:", result);
-      
-      const candidates = result?.response?.candidates;
-      if (!candidates || candidates.length === 0) {
-        throw new Error("Invalid response: No candidates found");
-      }
-  
-      const contentParts = candidates[0]?.content?.parts;
-      if (!contentParts || contentParts.length === 0) {
-        throw new Error("Invalid response: No content parts found");
-      }
-  
-      const botReply = contentParts[0].text;
-      setMessages([...newMessages, { text: botReply, sender: "bot" }]);
-  
-    } catch (error) {
-      console.error("Error fetching response:", error);
-      toast.error("Failed to get a response. Try again later.");
-    } finally {
-      setLoading(false);
-    }
-  };
-  
-  
-  
 
   const prompts = [
     "Suggest a high-protein diet",
@@ -81,88 +46,80 @@ const DietPlan = () => {
 
   return (
     <>
-      {plan === "free" ? (
-        <>
-          {" "}
-          <div className="restricted-access">
-            <h2>Upgrade Required</h2>
-            <p>
-              The AI Health Assistant is only available for Standard and Gold
-              members.
-            </p>
-            <a href="/membership" className="upgrade-button">
-              Upgrade Plan
-            </a>
-          </div>
-        </>
+      {plan !== "standard" && plan !== "gold" ? (
+        <div className="restricted-access">
+          <h2>Upgrade Required</h2>
+          <p>The AI Health Assistant is only available for Standard and Gold members.</p>
+          <a href="/membership" className="upgrade-button">
+            Upgrade Plan
+          </a>
+        </div>
       ) : (
-        <>
-          {" "}
-          <div className="chat-container">
-            <h2 className="chat-title">AI Health Assistant</h2>
-            <div className="input-container">
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about your diet..."
-              />
-              <button onClick={() => handleSend(input)}>Send</button>
-            </div>
-
-            {!clicked && (
-              <div className="prompt-buttons">
-                {prompts.map((prompt, index) => (
-                  <button key={index} onClick={() => handleSend(prompt)}>
-                    {prompt}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {clicked && messages.length > 0 && (
-              <div className="chat-box">
-                {messages.map((msg, index) => (
-                  <div key={index} className={`message ${msg.sender}`}>
-                    {msg.sender === "bot" && (
-                      <img
-                        src="https://as2.ftcdn.net/v2/jpg/02/23/38/61/1000_F_223386120_OMJd0gW045lI3TGy4UfUDOzOKvcrDWLR.jpg"
-                        alt="Bot"
-                        className="bot-avatar"
-                      />
-                    )}
-                    <div className="message-text">
-                      <ReactMarkdown>{msg.text}</ReactMarkdown>
-                    </div>
-                  </div>
-                ))}
-
-                {loading && (
-                  <div className="bot-typing">
-                    <img src="/bot-icon.png" alt="Bot" className="bot-avatar" />
-                    <div className="typing-indicator">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
+        <div className="chat-container">
+          <h2 className="chat-title">AI Health Assistant</h2>
+          <div className="input-container">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask about your diet..."
+            />
+            <button onClick={() => handleSend(input)}>Send</button>
           </div>
-          <ToastContainer
-            position="top-right"
-            autoClose={3000}
-            hideProgressBar
-            newestOnTop
-            closeOnClick
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-        </>
+
+          {!clicked && (
+            <div className="prompt-buttons">
+              {prompts.map((prompt, index) => (
+                <button key={index} onClick={() => handleSend(prompt)}>
+                  {prompt}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {clicked && messages.length > 0 && (
+            <div className="chat-box">
+              {messages.map((msg, index) => (
+                <div key={index} className={`message ${msg.sender}`}>
+                  {msg.sender === "bot" && (
+                    <img
+                      src="https://as2.ftcdn.net/v2/jpg/02/23/38/61/1000_F_223386120_OMJd0gW045lI3TGy4UfUDOzOKvcrDWLR.jpg"
+                      alt="Bot"
+                      className="bot-avatar"
+                    />
+                  )}
+                  <div className="message-text">
+                    <ReactMarkdown>{msg.text}</ReactMarkdown>
+                  </div>
+                </div>
+              ))}
+
+              {loading && (
+                <div className="bot-typing">
+                  <img src="/bot-icon.png" alt="Bot" className="bot-avatar" />
+                  <div className="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       )}
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 };

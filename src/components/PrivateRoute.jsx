@@ -1,9 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-// import { useAuth } from "./AuthContextProvider";
 
 const PrivateRoute = ({ element, requiredPlan }) => {
-  // const { user, plan } = useAuth(); // Get user & plan from AuthContext
 
   if (!user) {
     return <Navigate to="/login" />;

@@ -26,7 +26,9 @@ const Header = () => {
   // Fetch user session
   useEffect(() => {
     const fetchUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (session) {
         setUser(session.user);
         fetchUserPlan(session.user.id);
@@ -121,8 +123,13 @@ const Header = () => {
                             <span>{user.email}</span>
                           </p>
                           <p className="dropdown__item email">
-                            {plan === "free" ? <span>Free Access</span> : <span>Premium Access</span>}
+                            {plan === "free" && <span>Free Access</span>}
+                            {plan === "standard" && (
+                              <span>Standard Member</span>
+                            )}
+                            {plan === "gold" && <span>Gold Member</span>}
                           </p>
+
                           <button
                             className="dropdown__item logout"
                             onClick={handleLogout}
