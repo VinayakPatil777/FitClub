@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { auth } from "../firebase";
-import { signOut, onAuthStateChanged } from "firebase/auth";
+import { supabase } from "../supabaseClient";
 import "../styles/header.css";
 import logo from "../assets/img/vsLogo.jpg";
 import { useLocation } from "react-router-dom";
@@ -14,14 +13,6 @@ const nav__links = [
   { path: "/contact", display: "Contact Us" },
 ];
 
-// Simulate fetching user plan (Replace with actual plan data from DB)
-const getUserPlan = (email) => {
-  if (!email) return "Regular Member"; // Default
-  if (email.includes("gold")) return "Gold Member";
-  if (email.includes("standard")) return "Standard Member";
-  return "Regular Member";
-};
-
 const Header = () => {
   const headerRef = useRef(null);
   const [user, setUser] = useState(null);
@@ -30,15 +21,32 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dropdownRef = useRef(null);
-  const [plan, setPlan] = useState(() => {
-    return (localStorage.getItem("userPlan") || "free").trim().toLowerCase();
-  });
+  const [plan, setPlan] = useState("free");
+
+  // Fetch user session
   useEffect(() => {
-    const storedPlan = localStorage.getItem("userPlan");
-    if (storedPlan) {
-      setPlan(storedPlan.trim().toLowerCase());
-    }
+    const fetchUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        setUser(session.user);
+        fetchUserPlan(session.user.id);
+      }
+    };
+    fetchUser();
   }, []);
+
+  // Fetch user plan from Supabase
+  const fetchUserPlan = async (userId) => {
+    const { data, error } = await supabase
+      .from("users")
+      .select("plan")
+      .eq("id", userId)
+      .single();
+    if (!error && data) {
+      setPlan(data.plan.toLowerCase());
+    }
+  };
+
   // Sticky Header
   useEffect(() => {
     const headerFunc = () => {
@@ -48,23 +56,14 @@ const Header = () => {
         headerRef.current.classList.remove("sticky__header");
       }
     };
-
     window.addEventListener("scroll", headerFunc);
     return () => window.removeEventListener("scroll", headerFunc);
-  }, []);
-
-  // Listen for auth state changes
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
-      setUser(authUser);
-    });
-    return () => unsubscribe();
   }, []);
 
   // Logout Function
   const handleLogout = async () => {
     try {
-      await signOut(auth);
+      await supabase.auth.signOut();
       setUser(null);
       navigate("/login");
     } catch (error) {
@@ -72,28 +71,10 @@ const Header = () => {
     }
   };
 
-  // Get initials for avatar
-  const getInitials = (email) => {
-    return email ? email.charAt(0).toUpperCase() : "?";
-  };
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowDropdown(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
   return (
     <header className="header" ref={headerRef}>
       <div className="container">
         <div className="nav__wrapper">
-          {/* Logo */}
           <div className="logo">
             <div className="logo__img">
               <img src={logo} alt="Fitness Club Logo" />
@@ -110,7 +91,7 @@ const Header = () => {
                     className={({ isActive }) =>
                       isActive ? "nav__item active" : "nav__item"
                     }
-                    onClick={() => setMobileMenuOpen(false)} // Close mobile menu on click
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.display}
                   </NavLink>
@@ -126,27 +107,22 @@ const Header = () => {
                   {user ? (
                     <div
                       onClick={() => setShowDropdown(!showDropdown)}
-                      className="profile__container "
+                      className="profile__container"
                       ref={dropdownRef}
                     >
                       <div className="avatar" aria-label="User menu">
-                        {getInitials(user.email)}
+                        {user.email.charAt(0).toUpperCase()}
                       </div>
 
                       {showDropdown && (
                         <div className="profile__dropdown">
                           <p className="dropdown__item email">
-                            <>
-                              <i className="ri-mail-check-line icon"></i>
-                              <span>{user.email}</span>
-                            </>
+                            <i className="ri-mail-check-line icon"></i>
+                            <span>{user.email}</span>
                           </p>
-
                           <p className="dropdown__item email">
-                          {plan === "free" ? <span>Free Access</span> : <span>Premium Access</span>}
-
+                            {plan === "free" ? <span>Free Access</span> : <span>Premium Access</span>}
                           </p>
-
                           <button
                             className="dropdown__item logout"
                             onClick={handleLogout}
@@ -165,7 +141,6 @@ const Header = () => {
                 </>
               )}
 
-            {/* Mobile Menu Icon */}
             <span
               className="mobile__menu"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

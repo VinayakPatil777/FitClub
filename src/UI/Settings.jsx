@@ -1,92 +1,30 @@
-import { useState, useEffect } from "react";
-import { auth, db, storage } from "../firebase"; 
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useAuth } from '../context/AuthContext.jsx';
+import { supabase } from '../supabaseClient';
 
 const Settings = () => {
-  const [userData, setUserData] = useState({ name: "", profileImg: "" });
-  const [newName, setNewName] = useState("");
-  const [newProfileImg, setNewProfileImg] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const { user, userDetails, setUserDetails } = useAuth();
+  const [file, setFile] = useState(null);
+  const [username, setUsername] = useState(userDetails?.username || '');
 
-  // Fetch existing user data from Firestore
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (!auth.currentUser) return;
-
-      const userRef = doc(db, "users", auth.currentUser.uid);
-      const userSnap = await getDoc(userRef);
-
-      if (userSnap.exists()) {
-        setUserData(userSnap.data());
-        setNewName(userSnap.data().name);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
-  // Upload new profile image
-  const uploadImage = async (file) => {
-    const storageRef = ref(storage, `profileImages/${auth.currentUser.uid}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    return new Promise((resolve, reject) => {
-      uploadTask.on(
-        "state_changed",
-        null,
-        (error) => reject(error),
-        async () => {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          resolve(downloadURL);
-        }
-      );
-    });
-  };
-
-  // Handle Profile Update
-  const handleProfileUpdate = async () => {
-    if (!auth.currentUser) return;
-    setLoading(true);
-
-    try {
-      const userRef = doc(db, "users", auth.currentUser.uid);
-      let updatedData = { name: newName };
-
-      if (newProfileImg) {
-        const imageUrl = await uploadImage(newProfileImg);
-        updatedData.profileImg = imageUrl;
-      }
-
-      await updateDoc(userRef, updatedData);
-      setUserData({ ...userData, ...updatedData });
-
-      toast.success("Profile updated successfully!");
-      navigate("/profile"); // Redirect to Profile page
-    } catch (error) {
-      console.error("Error updating profile:", error);
-      toast.error("Failed to update profile!");
+  const uploadProfilePicture = async () => {
+    if (!file) return;
+    const filePath = `profiles/${user.id}/${file.name}`;
+    let { error } = await supabase.storage.from('avatars').upload(filePath, file);
+    if (!error) {
+      const { data } = supabase.storage.from('avatars').getPublicUrl(filePath);
+      await supabase.from('users').update({ avatar_url: data.publicUrl }).eq('id', user.id);
+      setUserDetails((prev) => ({ ...prev, avatar_url: data.publicUrl }));
     }
-
-    setLoading(false);
   };
 
   return (
-    <div className="settingsContainer">
-      <h2>Settings</h2>
-      <div className="profileSection">
-        <img src={userData.profileImg || "/default-avatar.png"} alt="Profile" className="profileImg" />
-        <input type="file" onChange={(e) => setNewProfileImg(e.target.files[0])} />
-      </div>
-      <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} placeholder="Enter your name" />
-      <button onClick={handleProfileUpdate} disabled={loading}>
-        {loading ? "Updating..." : "Save Changes"}
-      </button>
+    <div>
+      <h2>Profile Settings</h2>
+      <input type='text' value={username} onChange={(e) => setUsername(e.target.value)} />
+      <input type='file' onChange={(e) => setFile(e.target.files[0])} />
+      <button onClick={uploadProfilePicture}>Upload Avatar</button>
     </div>
   );
 };
-
 export default Settings;

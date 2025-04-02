@@ -6,7 +6,7 @@ import AllRoutes from "./components/AllRoutes";
 import "remixicon/fonts/remixicon.css";
 import { useLocation } from "react-router-dom";
 import TawkTo from "./TawkTo.js";
-import { AuthProvider } from "./components/AuthContextProvider.jsx";
+// import { AuthProvider } from "./components/AuthContextProvider.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -14,7 +14,7 @@ const App = () => {
   const location = useLocation(); // Get the current route path
 
   return (
-    <AuthProvider>
+    <>
       <Header />
       <AllRoutes />
       <ToastContainer />
@@ -22,7 +22,7 @@ const App = () => {
       {!["/checkout", "/login", "/signup"].includes(location.pathname) && (
         <Footer />
       )}
-    </AuthProvider>
+    </>
   );
 };
 

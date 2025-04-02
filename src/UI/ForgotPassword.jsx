@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { auth } from "../firebase"; // Make sure Firebase is initialized
-import { sendPasswordResetEmail } from "firebase/auth";
+import { supabase } from "../supabaseClient";
 import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
@@ -14,15 +13,17 @@ const ForgotPassword = () => {
     setMessage("");
     setError("");
 
-    try {
-      await sendPasswordResetEmail(auth, email);
-      setMessage("Password reset link sent! Check your email.");
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: "http://localhost:5173/reset-password", // Adjust for production
+    });
 
+    if (error) {
+      setError(error.message);
+    } else {
+      setMessage("Password reset link sent! Check your email.");
       setTimeout(() => {
         navigate("/login");
       }, 3000);
-    } catch (err) {
-      setError("Failed to send reset email. Check your email address.");
     }
   };
 
