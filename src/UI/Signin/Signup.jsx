@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router-dom";
 import { supabase } from "../../supabaseClient";
-import "react-toastify/dist/ReactToastify.css";
 import "./Signup.css";
 
 const Signup = () => {
@@ -55,7 +53,6 @@ const Signup = () => {
 
   return (
     <div className="loginPage">
-      <ToastContainer />
       <div className="loginWrapper">
         <h2 className="loginTitle">Sign Up</h2>
         <form className="loginForm" onSubmit={handleSignup}>

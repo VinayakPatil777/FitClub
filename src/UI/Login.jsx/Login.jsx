@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { supabase } from "../../supabaseClient";
-import "react-toastify/dist/ReactToastify.css";
 import "../Signin/Signup.css";
 
 const Login = () => {
@@ -54,8 +52,7 @@ const Login = () => {
   };
 
   return (
-    <div className="loginPage">
-      <ToastContainer />
+    <div className="loginPage2">
       <div className="loginWrapper">
         <h2 className="loginTitle">Login</h2>
         <form className="loginForm" onSubmit={handleLogin}>
@@ -78,7 +75,7 @@ const Login = () => {
           <button type="submit" className="loginButton">Login</button>
         </form>
         <p className="signupText">
-          New user?{" "}
+          New user?
           <NavLink to="/signup" className="signupLink">Sign up here</NavLink>
         </p>
         <Link to="/forgot-password" style={{ color: "white", margin: "10px" }}>

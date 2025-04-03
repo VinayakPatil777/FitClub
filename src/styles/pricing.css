@@ -20,6 +20,7 @@
     align-items: center;
     justify-content: space-between;
     column-gap: 2rem;
+    margin-bottom: 40px;
 }
 
 .pricing__item{

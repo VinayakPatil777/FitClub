@@ -2,13 +2,36 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 90vh; /* Ensures it fills the full screen */
+  /* min-height: 90vh;  */
+  height: calc(100vh - 70px);
   flex-grow: 1;
   background: url("https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") 
     no-repeat center center/cover;
   backdrop-filter: blur(6px);
 }
 
+.loginPage2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* min-height: 90vh;  */
+  height: calc(100vh - 70px);
+  flex-grow: 1;
+  background: url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") 
+    no-repeat center center/cover;
+  backdrop-filter: blur(6px);
+}
+.loginPage3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* min-height: 90vh;  */
+  height: calc(100vh - 70px);
+  flex-grow: 1;
+  background: url("https://images.unsplash.com/photo-1605296867304-46d5465a13f1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") 
+    no-repeat center center/cover;
+  backdrop-filter: blur(6px);
+}
 /* Glassmorphism Login/Signup Box */
 .loginWrapper {
   background: rgba(255, 255, 255, 0.1);

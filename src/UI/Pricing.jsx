@@ -47,7 +47,7 @@ const Pricing = () => {
   };
 
   return (
-    <section id="membership">
+    <section id="membership divSection">
       <div className="container">
         <div className="pricing__top">
           <h2 className="section__title">

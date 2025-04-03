@@ -14,7 +14,7 @@ import PULL from '../assets/img/pull workout.jpg'
 export default function Testimonials() {
   return (
     <>
-      <section id="programs">
+      <section id="programs divSection">
         <div className="container sliders">
           <h2 className="section__title">
             <span className="highlights">Full-Length </span>Workout Programs

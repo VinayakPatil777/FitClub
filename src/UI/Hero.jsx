@@ -12,7 +12,7 @@ const Hero = () => {
       navigate("/membership"); // Navigate to the checkout page
     };
     return (
-      <section id="#">
+      <section className="divSection">
         <div className="container">
           <div className="hero__wrapper">
             <div className="hero__content">

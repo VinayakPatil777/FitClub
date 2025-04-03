@@ -19,7 +19,7 @@ const App = () => {
       <AllRoutes />
       <ToastContainer />
       <TawkTo />
-      {!["/checkout", "/login", "/signup"].includes(location.pathname) && (
+      {!["/checkout", "/login", "/signup" ,"/forgot-password"].includes(location.pathname) && (
         <Footer />
       )}
     </>

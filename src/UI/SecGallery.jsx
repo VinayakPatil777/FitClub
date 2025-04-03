@@ -13,7 +13,7 @@ const SecGallery = () => {
     <div className="container">
       <div style={{ display: "flex", gap: "10px", marginBottom: "50px" }}>
         {/* BMI Info Section */}
-        <section className="bmi-info-section">
+        <section className="bmi-info-section divSection">
           <div className="bmi-info-content">
             <h1>Know Your BMI</h1>
             <p>
@@ -27,7 +27,7 @@ const SecGallery = () => {
         </section>
 
         {/* Video Gallery Section */}
-        <section className="video-gallery-section">
+        <section className="video-gallery-section divSection">
           <div className="video-gallery-content">
             <h1>Explore Our Video Gallery</h1>
             <p>

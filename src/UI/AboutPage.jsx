@@ -17,7 +17,7 @@ const AboutPage = () => {
       </nav> */}
 
       {/* Hero Section */}
-      <section className="hero-section">
+      <section className="hero-section divSection">
         <div className="hero-overlay">
           <div className="hero-content">
             <h1 className="hero-title">Transform Your Life</h1>
