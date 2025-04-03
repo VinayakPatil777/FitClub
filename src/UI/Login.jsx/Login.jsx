@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { supabase } from "../../supabaseClient";
 import "../Signin/Signup.css";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -82,6 +83,7 @@ const Login = () => {
           Forgot Password?
         </Link>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

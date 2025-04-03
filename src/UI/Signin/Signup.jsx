@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { supabase } from "../../supabaseClient";
 import "./Signup.css";
+import { toast, ToastContainer } from "react-toastify";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -83,6 +84,7 @@ const Signup = () => {
           </NavLink>
         </p>
       </div>
+      <ToastContainer/>
     </div>
   );
 };
