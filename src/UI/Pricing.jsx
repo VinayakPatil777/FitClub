@@ -27,17 +27,27 @@ const Pricing = () => {
     fetchUser();
   }, []);
 
-  const handleBuyNowClick = (plan, price) => {
+  const handleBuyNowClick = async (plan) => {
     if (!user) {
       navigate("/login");
       return;
     }
     if (userPlan === plan) return;
-    navigate(`/checkout?plan=${plan}&price=${price}`);
+
+    const { error } = await supabase
+      .from("users")
+      .update({ plan })
+      .eq("id", user.id);
+
+    if (!error) {
+      setUserPlan(plan);
+    } else {
+      console.error("Subscription update error:", error.message);
+    }
   };
 
   return (
-    <section id="membership divSection">
+    <section id="membership">
       <div className="container">
         <div className="pricing__top">
           <h2 className="section__title">
@@ -70,7 +80,7 @@ const Pricing = () => {
               </ul>
               <button
                 className="register__btn"
-                onClick={() => handleBuyNowClick("Free", 0)}
+                onClick={() => handleBuyNowClick("Free")}
               >
                 Get Started
               </button>
@@ -95,7 +105,7 @@ const Pricing = () => {
               </ul>
               <button
                 className="register__btn"
-                onClick={() => handleBuyNowClick("Gold", 6999)}
+                onClick={() => handleBuyNowClick("Gold")}
                 disabled={loading || userPlan === "Gold"}
               >
                 {loading
@@ -125,7 +135,7 @@ const Pricing = () => {
               </ul>
               <button
                 className="register__btn"
-                onClick={() => handleBuyNowClick("Standard", 4999)}
+                onClick={() => handleBuyNowClick("Standard")}
                 disabled={loading || userPlan === "Standard"}
               >
                 {loading
