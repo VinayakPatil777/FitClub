@@ -15,62 +15,82 @@ const nav__links = [
 
 const Header = () => {
   const headerRef = useRef(null);
-  const [user, setUser] = useState(null);
+  const dropdownRef = useRef(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [plan, setPlan] = useState(null);
+
   const navigate = useNavigate();
   const location = useLocation();
-  const dropdownRef = useRef(null);
-  const [plan, setPlan] = useState("free");
 
-  // Fetch user session
+  // Sticky header
   useEffect(() => {
-    const fetchUser = async () => {
+    const handleScroll = () => {
+      if (window.scrollY > 80) {
+        headerRef.current?.classList.add("sticky__header");
+      } else {
+        headerRef.current?.classList.remove("sticky__header");
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Fetch user and plan
+  useEffect(() => {
+    const fetchUserAndPlan = async () => {
       const {
         data: { session },
+        error,
       } = await supabase.auth.getSession();
-      if (session) {
-        setUser(session.user);
-        fetchUserPlan(session.user.id);
-      }
-    };
-    fetchUser();
-  }, []);
 
-  // Fetch user plan from Supabase
-  const fetchUserPlan = async (userId) => {
-    const { data, error } = await supabase
-      .from("users")
-      .select("plan")
-      .eq("id", userId)
-      .single();
-    if (!error && data) {
-      setPlan(data.plan.toLowerCase());
-    }
-  };
+      if (session?.user) {
+        const currentUser = session.user;
+        setUser(currentUser);
 
-  // Sticky Header
-  useEffect(() => {
-    const headerFunc = () => {
-      if (window.scrollY > 80) {
-        headerRef.current.classList.add("sticky__header");
+        // Fetch plan
+        const { data: userData, error: planError } = await supabase
+          .from("users")
+          .select("plan")
+          .eq("id", currentUser.id)
+          .single();
+
+        if (!planError && userData?.plan) {
+          setPlan(userData.plan.toLowerCase());
+        } else {
+          setPlan("free");
+        }
       } else {
-        headerRef.current.classList.remove("sticky__header");
+        setUser(null);
+        setPlan(null);
       }
     };
-    window.addEventListener("scroll", headerFunc);
-    return () => window.removeEventListener("scroll", headerFunc);
+
+    fetchUserAndPlan();
+
+    // Optional: Listen to auth state change to update user state when login/logout occurs
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
+          fetchUserAndPlan();
+        } else if (event === "SIGNED_OUT") {
+          setUser(null);
+          setPlan(null);
+        }
+      }
+    );
+
+    return () => {
+      authListener?.subscription?.unsubscribe();
+    };
   }, []);
 
-  // Logout Function
   const handleLogout = async () => {
-    try {
-      await supabase.auth.signOut();
-      setUser(null);
-      navigate("/login");
-    } catch (error) {
-      console.error("Logout Error:", error.message);
-    }
+    await supabase.auth.signOut();
+    setUser(null);
+    setPlan(null);
+    navigate("/login");
   };
 
   return (

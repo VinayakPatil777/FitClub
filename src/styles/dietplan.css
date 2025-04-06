@@ -253,3 +253,45 @@
       height: 350px;
     }
   }
+
+
+  .restricted-access {
+    text-align: center;
+    padding: 3rem 1rem;
+    background-color: #f8f9fb;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    max-width: 500px;
+    margin: 3rem auto;
+  }
+  
+  .restricted-access h2 {
+    font-size: 2rem;
+    color: var(--heading-color);
+    margin-bottom: 1rem;
+  }
+  
+  .restricted-access p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+  
+  .upgrade-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background 0.3s ease;
+  }
+  
+  .upgrade-button:hover {
+    background-color: #ff7f50; /* Optional hover color */
+  }
+  

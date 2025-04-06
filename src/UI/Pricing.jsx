@@ -8,7 +8,25 @@ const Pricing = () => {
   const [user, setUser] = useState(null);
   const [userPlan, setUserPlan] = useState(null);
   const [loading, setLoading] = useState(true);
+  const handleBuyNowClick = async (plan) => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    if (userPlan === plan) return;
 
+    const { error } = await supabase
+      .from("users")
+      .update({ plan })
+      .eq("id", user.id);
+
+    if (!error) {
+      setUserPlan(plan);
+      fetchUser();
+    } else {
+      console.error("Subscription update error:", error.message);
+    }
+  };
   useEffect(() => {
     const fetchUser = async () => {
       const { data: session } = await supabase.auth.getSession();
@@ -25,26 +43,9 @@ const Pricing = () => {
       setLoading(false);
     };
     fetchUser();
-  }, []);
+  }, [userPlan]);
 
-  const handleBuyNowClick = async (plan) => {
-    if (!user) {
-      navigate("/login");
-      return;
-    }
-    if (userPlan === plan) return;
 
-    const { error } = await supabase
-      .from("users")
-      .update({ plan })
-      .eq("id", user.id);
-
-    if (!error) {
-      setUserPlan(plan);
-    } else {
-      console.error("Subscription update error:", error.message);
-    }
-  };
 
   return (
     <section id="membership">
